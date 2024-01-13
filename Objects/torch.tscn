@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://w1iwj6p7pjtt"]
+
+[ext_resource type="Texture2D" uid="uid://bx154o8kavlc5" path="res://SpotLight.tres" id="1_jnujb"]
+
+[node name="Torch" type="Node2D"]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = ExtResource("1_jnujb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
