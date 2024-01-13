@@ -1,17 +1,21 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using static Godot.RenderingDevice;
 
 public partial class Player : CharacterBody2D
 {
 	public const float Speed = 300.0f;
+	public const float LanternEnergy = 3f;
 	public int Hp = 100;
 	PointLight2D Light = new PointLight2D();
-	
+	public int InLightZones = 0;
 	public override void _Ready()
 	{
 		// Called every time the node is added to the scene.
 		// Initialization here.
 		Light = (PointLight2D)GetNode("Lantern");
+		InLightZones = 0;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -38,6 +42,40 @@ public partial class Player : CharacterBody2D
 
 	private void LightTick()
 	{
-		Light.Energy -= 0.01f;
+		if (Light.TextureScale > 0 && InLightZones == 0)
+		{
+			Light.TextureScale -= 0.3f;
+		}
+		else if (InLightZones > 0 && Light.TextureScale < 10)
+		{
+			Light.TextureScale += 1f;
+			Light.Energy = LanternEnergy;
+		}
+		if (Light.TextureScale > 10)
+		{
+			Light.TextureScale = 10f;
+		}
+		if (Light.TextureScale <= 0)
+		{
+			Light.TextureScale = 0f;
+			Light.Energy = 0f;
+		}
+		GD.Print("TICK!");
+		GD.Print(InLightZones);
+	}
+
+	private void EnteredLightZone(Node2D body)
+	{
+		if (body.IsInGroup("Player"))
+		{
+			InLightZones++;
+		}
+	}
+	private void ExitedLightZone(Node2D body)
+	{
+		if (body.IsInGroup("Player"))
+		{
+			InLightZones--;
+		}
 	}
 }

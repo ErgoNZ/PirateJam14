@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvr3vdgt8skoo"]
+[gd_scene load_steps=9 format=3 uid="uid://dvr3vdgt8skoo"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_ynn1u"]
 [ext_resource type="TileSet" uid="uid://06q2bvu62dyy" path="res://new_tile_set.tres" id="2_au76m"]
 [ext_resource type="Texture2D" uid="uid://bx154o8kavlc5" path="res://SpotLight.tres" id="2_jynco"]
+[ext_resource type="PackedScene" uid="uid://w1iwj6p7pjtt" path="res://Objects/torch.tscn" id="4_dgl4v"]
 
 [sub_resource type="Gradient" id="Gradient_apk54"]
 offsets = PackedFloat32Array(0, 0.00649351)
@@ -27,8 +28,8 @@ shadow_color = Color(0.470588, 0, 0.929412, 0.321569)
 texture = SubResource("GradientTexture2D_k2kcp")
 texture_scale = 44.28
 
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(562, 358)
+[node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
+position = Vector2(305, 365)
 script = ExtResource("1_ynn1u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -42,12 +43,12 @@ texture = SubResource("PlaceholderTexture2D_p2fd8")
 
 [node name="Lantern" type="PointLight2D" parent="Player"]
 color = Color(0.941176, 0.266667, 0, 1)
-energy = 2.7
+energy = 3.0
 texture = ExtResource("2_jynco")
-texture_scale = 10.62
+texture_scale = 10.0
 
 [node name="Timer" type="Timer" parent="Player/Lantern"]
-wait_time = 0.1
+wait_time = 0.5
 autostart = true
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -56,4 +57,17 @@ tile_set = ExtResource("2_au76m")
 format = 2
 layer_0/tile_data = PackedInt32Array(983064, 1, 0, 983085, 1, 0, 1900572, 1, 0, 1835056, 1, 0)
 
+[node name="Torch" parent="." instance=ExtResource("4_dgl4v")]
+position = Vector2(794, 341)
+
+[node name="Torch2" parent="." instance=ExtResource("4_dgl4v")]
+position = Vector2(794, 158)
+
 [connection signal="timeout" from="Player/Lantern/Timer" to="Player" method="LightTick"]
+[connection signal="body_entered" from="Torch/Area2D" to="Player" method="EnteredLightZone"]
+[connection signal="body_exited" from="Torch/Area2D" to="Player" method="ExitedLightZone"]
+[connection signal="body_entered" from="Torch2/Area2D" to="Player" method="EnteredLightZone"]
+[connection signal="body_exited" from="Torch2/Area2D" to="Player" method="ExitedLightZone"]
+
+[editable path="Torch"]
+[editable path="Torch2"]

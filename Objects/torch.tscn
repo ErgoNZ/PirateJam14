@@ -1,10 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://w1iwj6p7pjtt"]
+[gd_scene load_steps=3 format=3 uid="uid://w1iwj6p7pjtt"]
 
-[ext_resource type="Texture2D" uid="uid://bx154o8kavlc5" path="res://SpotLight.tres" id="1_jnujb"]
+[ext_resource type="Texture2D" uid="uid://cjn47he8l7e51" path="res://TorchLight.tres" id="1_lnl02"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ralba"]
+radius = 40.2003
 
 [node name="Torch" type="Node2D"]
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-texture = ExtResource("1_jnujb")
+color = Color(0.937255, 0.407843, 0, 1)
+energy = 3.0
+texture = ExtResource("1_lnl02")
+texture_scale = 5.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(4, 4)
+shape = SubResource("CircleShape2D_ralba")
