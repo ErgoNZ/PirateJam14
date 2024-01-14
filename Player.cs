@@ -10,6 +10,14 @@ public partial class Player : CharacterBody2D
 	public int Hp = 100;
 	PointLight2D Light = new PointLight2D();
 	public int InLightZones = 0;
+	Inventory inventory = new Inventory();
+
+	public class Inventory
+	{
+		public int Rocks;
+		public int Grass;
+		public int Wood;
+	}
 	public override void _Ready()
 	{
 		// Called every time the node is added to the scene.
@@ -77,5 +85,11 @@ public partial class Player : CharacterBody2D
 		{
 			InLightZones--;
 		}
+	}
+
+	private void CollectRocks(long RocksGained)
+	{
+		inventory.Rocks += (int)RocksGained;
+		GD.Print("I have " + inventory.Rocks + " rocks currently!");
 	}
 }

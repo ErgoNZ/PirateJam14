@@ -9,7 +9,7 @@ radius = 40.2003
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0.937255, 0.407843, 0, 1)
-energy = 3.0
+energy = 4.0
 texture = ExtResource("1_lnl02")
 texture_scale = 5.0
 
