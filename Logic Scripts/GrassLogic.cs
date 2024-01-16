@@ -1,22 +1,21 @@
 using Godot;
 using System;
 
-public partial class RockLogic : Node2D
+public partial class GrassLogic : Node2D
 {
-	int RockAmount = 0;
-	const int RockMin = 1;
-	const int RockMax = 4;
+	int GrassAmount = 0;
+	const int GrassMin = 1;
+	const int GrassMax = 7;
 	public bool PlayerCanReach = false;
 	Random Random = new Random();
 	Label InteractIcon = new Label();
-	[Signal]
-	public delegate void RockCollectionEventHandler(int RocksGained);
+	ResourceSignals signals;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		RockAmount = Random.Next(RockMin, RockMax);
-		InteractIcon = (Label)GetNode("Label");
-		
+		signals = GetNode<ResourceSignals>("/root/ResourceSignals");
+		GrassAmount = Random.Next(GrassMin, GrassMax);
+		InteractIcon = (Label)GetNode("Label");		
 	}
 
 	private void PlayerInRange(Node2D body)
@@ -39,10 +38,10 @@ public partial class RockLogic : Node2D
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event.IsActionPressed("Interact"))
+		if (@event.IsActionPressed("Interact") && PlayerCanReach == true)
 		{
-			GD.Print("Rock was gathered and gave " + RockAmount +" rocks!");
-			EmitSignal(nameof(RockCollection), RockAmount);
+			GD.Print("Grass was gathered and gave " + GrassAmount +" grass!");
+			signals.EmitSignal("GrassCollection", GrassAmount);
 		}
 	}
 }

@@ -1,7 +1,5 @@
 using Godot;
 using System;
-using System.Collections.Generic;
-using static Godot.RenderingDevice;
 
 public partial class Player : CharacterBody2D
 {
@@ -11,6 +9,9 @@ public partial class Player : CharacterBody2D
 	PointLight2D Light = new PointLight2D();
 	public int InLightZones = 0;
 	Inventory inventory = new Inventory();
+	ResourceSignals ResSignals;
+	LightSignals LightSignals;
+
 
 	public class Inventory
 	{
@@ -24,6 +25,12 @@ public partial class Player : CharacterBody2D
 		// Initialization here.
 		Light = (PointLight2D)GetNode("Lantern");
 		InLightZones = 0;
+        ResSignals = GetNode<ResourceSignals>("/root/ResourceSignals");
+        LightSignals = GetNode<LightSignals>("/root/LightSignals");
+        ResSignals.WoodCollection += CollectLogs;
+        ResSignals.GrassCollection += CollectGrass;
+        ResSignals.RockCollection += CollectRocks;
+		LightSignals.DecreaseInLightAmount += LightFaded;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -68,7 +75,6 @@ public partial class Player : CharacterBody2D
 			Light.TextureScale = 0f;
 			Light.Energy = 0f;
 		}
-		GD.Print("TICK!");
 		GD.Print(InLightZones);
 	}
 
@@ -86,10 +92,27 @@ public partial class Player : CharacterBody2D
 			InLightZones--;
 		}
 	}
+    private void LightFaded()
+    {
+        InLightZones--;
+    }
 
-	private void CollectRocks(long RocksGained)
+    private void CollectRocks(int RocksGained)
 	{
-		inventory.Rocks += (int)RocksGained;
+		inventory.Rocks += RocksGained;
+		GD.Print("This works!");
 		GD.Print("I have " + inventory.Rocks + " rocks currently!");
+	}
+	public void CollectLogs(int WoodGained)
+	{
+		inventory.Wood += WoodGained;
+		GD.Print("This works!");
+		GD.Print("I have " + inventory.Wood + " wood currently!");
+	}
+	private void CollectGrass(int GrassGained)
+	{
+		inventory.Grass += GrassGained;
+		GD.Print("This works!");
+		GD.Print("I have " + inventory.Grass + " grass currently!");
 	}
 }
