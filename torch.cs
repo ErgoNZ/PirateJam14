@@ -22,7 +22,7 @@ public partial class torch : Node2D
 
 	private void LightTick()
 	{
-        LightPercentage -= 0.25f;
+        LightPercentage -= 0.01f;
         LightZone.Scale = new(LightZoneDefault * LightPercentage, LightZoneDefault * LightPercentage);
         Light.TextureScale = LightTexureScaleDefault * LightPercentage;
         if (LightZone.Scale.X <= 0)

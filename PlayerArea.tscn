@@ -32,7 +32,7 @@ texture = SubResource("GradientTexture2D_k2kcp")
 texture_scale = 44.28
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
-position = Vector2(305, 365)
+position = Vector2(574, 319)
 script = ExtResource("1_ynn1u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -41,8 +41,6 @@ shape = SubResource("RectangleShape2D_f4xlv")
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 scale = Vector2(20, 20)
 texture = SubResource("PlaceholderTexture2D_p2fd8")
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
 
 [node name="Lantern" type="PointLight2D" parent="Player"]
 color = Color(0.941176, 0.266667, 0, 1)
@@ -54,32 +52,78 @@ texture_scale = 10.0
 wait_time = 0.5
 autostart = true
 
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(1.66, 1.66)
+
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-21, -3)
 tile_set = ExtResource("2_au76m")
 format = 2
-layer_0/tile_data = PackedInt32Array(983064, 1, 0, 983085, 1, 0, 1900572, 1, 0, 1835056, 1, 0)
+layer_0/tile_data = PackedInt32Array(983064, 1, 0, 983085, 1, 0, 1900572, 1, 0, 1835056, 1, 0, 262213, 1, 0, 262149, 1, 0, 2359301, 1, 0, 2359365, 1, 0)
 
 [node name="Grass" parent="." instance=ExtResource("4_vmcku")]
-position = Vector2(307, 473)
+position = Vector2(546, 101)
 
 [node name="Tree" parent="." instance=ExtResource("4_64e1x")]
-position = Vector2(260, 254)
+position = Vector2(465, 242)
 
 [node name="Rock" parent="." instance=ExtResource("4_vinfl")]
-position = Vector2(599, 362)
+position = Vector2(630, 240)
 
 [node name="Torch" parent="." instance=ExtResource("4_dgl4v")]
 position = Vector2(585, 457)
 
+[node name="CollisionShape2D" parent="Torch/Area2D" index="0"]
+position = Vector2(-219, -94)
+
 [node name="Torch2" parent="." instance=ExtResource("4_dgl4v")]
-position = Vector2(794, 158)
+position = Vector2(547, 196)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BoxContainer" type="BoxContainer" parent="CanvasLayer"]
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 118.0
+offset_bottom = 206.0
+vertical = true
+
+[node name="GrassAmount" type="Label" parent="CanvasLayer/BoxContainer"]
+layout_mode = 2
+text = "Grass : 0"
+
+[node name="LogAmount" type="Label" parent="CanvasLayer/BoxContainer"]
+layout_mode = 2
+text = "Logs: 0"
+
+[node name="RockAmount" type="Label" parent="CanvasLayer/BoxContainer"]
+layout_mode = 2
+text = "Rocks: 0"
+
+[node name="SanityTab" type="Label" parent="CanvasLayer/BoxContainer"]
+layout_mode = 2
+text = "Sanity"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/BoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/BoxContainer"]
+layout_mode = 2
+text = "Build Torch"
+
+[node name="Label" type="Label" parent="CanvasLayer/BoxContainer"]
+layout_mode = 2
+text = "Cost:
+2 grass
+1 log"
 
 [connection signal="timeout" from="Player/Lantern/Timer" to="Player" method="LightTick"]
 [connection signal="body_entered" from="Torch/Area2D" to="Player" method="EnteredLightZone"]
 [connection signal="body_exited" from="Torch/Area2D" to="Player" method="ExitedLightZone"]
 [connection signal="body_entered" from="Torch2/Area2D" to="Player" method="EnteredLightZone"]
 [connection signal="body_exited" from="Torch2/Area2D" to="Player" method="ExitedLightZone"]
+[connection signal="button_up" from="CanvasLayer/BoxContainer/Button" to="Player" method="PlayerBuiltTorch"]
 
 [editable path="Rock"]
 [editable path="Torch"]

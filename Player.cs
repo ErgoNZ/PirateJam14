@@ -11,7 +11,8 @@ public partial class Player : CharacterBody2D
 	Inventory inventory = new Inventory();
 	ResourceSignals ResSignals;
 	LightSignals LightSignals;
-
+	Label Grass, Logs, Rocks;
+	PackedScene Torch;
 
 	public class Inventory
 	{
@@ -27,6 +28,10 @@ public partial class Player : CharacterBody2D
 		InLightZones = 0;
         ResSignals = GetNode<ResourceSignals>("/root/ResourceSignals");
         LightSignals = GetNode<LightSignals>("/root/LightSignals");
+		Grass = GetNode<Label>("../CanvasLayer/BoxContainer/GrassAmount");
+        Logs = GetNode<Label>("../CanvasLayer/BoxContainer/LogAmount");
+        Rocks = GetNode<Label>("../CanvasLayer/BoxContainer/RockAmount");
+		Torch = GD.Load<PackedScene>("res://Objects/torch.tscn");
         ResSignals.WoodCollection += CollectLogs;
         ResSignals.GrassCollection += CollectGrass;
         ResSignals.RockCollection += CollectRocks;
@@ -77,6 +82,12 @@ public partial class Player : CharacterBody2D
 		}
 		GD.Print(InLightZones);
 	}
+	private void UpdateInv()
+	{
+		Grass.Text = "Grass: " + inventory.Grass;
+        Logs.Text = "Logs: " + inventory.Wood;
+        Rocks.Text = "Rocks: " + inventory.Rocks;
+    }
 
 	private void EnteredLightZone(Node2D body)
 	{
@@ -102,17 +113,34 @@ public partial class Player : CharacterBody2D
 		inventory.Rocks += RocksGained;
 		GD.Print("This works!");
 		GD.Print("I have " + inventory.Rocks + " rocks currently!");
-	}
+		UpdateInv();
+    }
 	public void CollectLogs(int WoodGained)
 	{
 		inventory.Wood += WoodGained;
 		GD.Print("This works!");
 		GD.Print("I have " + inventory.Wood + " wood currently!");
-	}
+		UpdateInv();
+    }
 	private void CollectGrass(int GrassGained)
 	{
 		inventory.Grass += GrassGained;
 		GD.Print("This works!");
 		GD.Print("I have " + inventory.Grass + " grass currently!");
+		UpdateInv();
+    }
+
+	private void PlayerBuiltTorch()
+	{
+		if (inventory.Grass >= 2 && inventory.Wood >= 1)
+		{
+			inventory.Grass -= 2;
+            inventory.Wood -= 1;
+            UpdateInv();
+            Node2D SpawnedTorch;
+            SpawnedTorch = (Node2D)Torch.Instantiate();
+            AddSibling(SpawnedTorch);
+            SpawnedTorch.Position = this.Position;
+        }
 	}
 }
