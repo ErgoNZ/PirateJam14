@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://1eh0gjuraas"]
+
+[ext_resource type="Script" path="res://Lamppost.cs" id="1_lbcg1"]
+[ext_resource type="Texture2D" uid="uid://cjn47he8l7e51" path="res://TorchLight.tres" id="2_kl8dd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dns7g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ralba"]
+radius = 40.2003
+
+[node name="Torch" type="Node2D"]
+script = ExtResource("1_lbcg1")
+
+[node name="ForcedInteractionRange" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForcedInteractionRange"]
+scale = Vector2(8, 8)
+shape = SubResource("CircleShape2D_dns7g")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -82.0
+offset_top = 57.0
+offset_right = -42.0
+offset_bottom = 97.0
+scale = Vector2(4.21675, 0.411482)
+value = 100.0
+show_percentage = false
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.937255, 0.407843, 0, 1)
+energy = 4.0
+texture = ExtResource("2_kl8dd")
+texture_scale = 5.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(4, 4)
+shape = SubResource("CircleShape2D_ralba")
+
+[node name="Timer" type="Timer" parent="Area2D"]
+wait_time = 0.5
+autostart = true
+
+[node name="GrassLabel" type="Label" parent="."]
+offset_left = -108.0
+offset_top = -69.0
+offset_right = -10.0
+offset_bottom = -46.0
+text = "E: Grass 10%"
+
+[node name="WoodLabel" type="Label" parent="."]
+offset_left = 12.0
+offset_top = -69.0
+offset_right = 110.0
+offset_bottom = -46.0
+text = "F: Log 40%"
+
+[connection signal="body_entered" from="ForcedInteractionRange" to="." method="PlayerInInteractionRange"]
+[connection signal="body_exited" from="ForcedInteractionRange" to="." method="PlayerLeftInteractionRange"]
+[connection signal="body_entered" from="Area2D" to="." method="OnPlayerEnter"]
+[connection signal="body_exited" from="Area2D" to="." method="OnPlayerExit"]
+[connection signal="timeout" from="Area2D/Timer" to="." method="LightTick"]

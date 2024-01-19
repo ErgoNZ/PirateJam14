@@ -111,22 +111,16 @@ public partial class Player : CharacterBody2D
     private void CollectRocks(int RocksGained)
 	{
 		inventory.Rocks += RocksGained;
-		GD.Print("This works!");
-		GD.Print("I have " + inventory.Rocks + " rocks currently!");
 		UpdateInv();
     }
 	public void CollectLogs(int WoodGained)
 	{
 		inventory.Wood += WoodGained;
-		GD.Print("This works!");
-		GD.Print("I have " + inventory.Wood + " wood currently!");
 		UpdateInv();
     }
 	private void CollectGrass(int GrassGained)
 	{
 		inventory.Grass += GrassGained;
-		GD.Print("This works!");
-		GD.Print("I have " + inventory.Grass + " grass currently!");
 		UpdateInv();
     }
 
@@ -143,4 +137,13 @@ public partial class Player : CharacterBody2D
             SpawnedTorch.Position = this.Position;
         }
 	}
+
+	private void TakeGrass()
+	{
+
+	}
+    private void TakeLog()
+    {
+
+    }
 }
