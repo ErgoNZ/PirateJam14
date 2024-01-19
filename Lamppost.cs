@@ -17,6 +17,7 @@ public partial class Lamppost : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+
 		LightZone = GetNode<Area2D>("Area2D");
 		Light = GetNode<PointLight2D>("PointLight2D");
 		LightSignals = GetNode<LightSignals>("/root/LightSignals");
@@ -86,6 +87,7 @@ public partial class Lamppost : Node2D
         if (@event.IsActionPressed("Interact") && PlayerInRange == true)
         {
             signals.EmitSignal("TakeGrass");
+          
         }
         if (@event.IsActionPressed("ALTInteract") && PlayerInRange == true)
         {

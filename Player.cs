@@ -3,6 +3,7 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
+	public static Player playerScript;
 	public const float Speed = 300.0f;
 	public const float LanternEnergy = 3f;
 	public int Hp = 100;
@@ -16,12 +17,15 @@ public partial class Player : CharacterBody2D
 
 	public class Inventory
 	{
+		public static Inventory inventoryScript;
 		public int Rocks;
 		public int Grass;
 		public int Wood;
 	}
+	
 	public override void _Ready()
 	{
+		playerScript = this;
 		// Called every time the node is added to the scene.
 		// Initialization here.
 		Light = (PointLight2D)GetNode("Lantern");

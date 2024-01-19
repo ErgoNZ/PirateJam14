@@ -47,7 +47,6 @@ public partial class torch : Node2D
 			PlayerInLight = true;
 		}
 	}
-
 	private void OnPlayerExit(Node2D body)
 	{
         if (body.IsInGroup("Player"))
