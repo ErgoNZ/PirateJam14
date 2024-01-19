@@ -86,12 +86,12 @@ public partial class Lamppost : Node2D
     {
         if (@event.IsActionPressed("Interact") && PlayerInRange == true)
         {
-            signals.EmitSignal("TakeGrass");
+            if(Player.Inventory.inventoryScript.Grass >= 1) signals.EmitSignal("TakeGrass");
           
         }
         if (@event.IsActionPressed("ALTInteract") && PlayerInRange == true)
         {
-           signals.EmitSignal("TakeLog");
+            if (Player.Inventory.inventoryScript.Wood >= 1) signals.EmitSignal("TakeLog");
         }
     }
 }

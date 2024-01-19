@@ -40,8 +40,9 @@ public partial class GrassLogic : Node2D
 	{
 		if (@event.IsActionPressed("Interact") && PlayerCanReach == true)
 		{
-			GD.Print("Grass was gathered and gave " + GrassAmount +" grass!");
-			signals.EmitSignal("GrassCollection", GrassAmount);
+            QueueFree();
+            GD.Print("Grass was gathered and gave " + GrassAmount +" grass!");
+			signals.EmitSignal("GrassCollection", GrassAmount);		
 		}
 	}
 }

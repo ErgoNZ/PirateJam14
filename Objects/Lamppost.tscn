@@ -19,6 +19,7 @@ scale = Vector2(8, 8)
 shape = SubResource("CircleShape2D_dns7g")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
 offset_left = -82.0
 offset_top = 57.0
 offset_right = -42.0
@@ -36,9 +37,9 @@ texture_scale = 5.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(1, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(9, 2)
 scale = Vector2(4, 4)
 shape = SubResource("CircleShape2D_ralba")
 
@@ -47,6 +48,7 @@ wait_time = 0.5
 autostart = true
 
 [node name="GrassLabel" type="Label" parent="."]
+visible = false
 offset_left = -108.0
 offset_top = -69.0
 offset_right = -10.0
@@ -54,6 +56,7 @@ offset_bottom = -46.0
 text = "E: Grass 10%"
 
 [node name="WoodLabel" type="Label" parent="."]
+visible = false
 offset_left = 12.0
 offset_top = -69.0
 offset_right = 110.0
