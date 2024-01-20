@@ -113,11 +113,32 @@ layout_mode = 2
 layout_mode = 2
 text = "Build Torch"
 
-[node name="Label" type="Label" parent="CanvasLayer/BoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/BoxContainer/Button"]
 layout_mode = 2
+offset_top = 35.0
+offset_right = 116.0
+offset_bottom = 110.0
 text = "Cost:
 2 grass
 1 log"
+
+[node name="lamp_postButton" type="Button" parent="CanvasLayer/BoxContainer/Button"]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 118.0
+offset_right = 120.0
+offset_bottom = 149.0
+text = "Build Lampost
+"
+
+[node name="Label" type="Label" parent="CanvasLayer/BoxContainer/Button/lamp_postButton"]
+layout_mode = 2
+offset_top = 35.0
+offset_right = 116.0
+offset_bottom = 110.0
+text = "Cost:
+2 rock
+2 log"
 
 [node name="Lamppost" parent="." instance=ExtResource("8_yqs5w")]
 position = Vector2(958, 131)
@@ -128,6 +149,7 @@ position = Vector2(958, 131)
 [connection signal="body_entered" from="Torch2/Area2D" to="Player" method="EnteredLightZone"]
 [connection signal="body_exited" from="Torch2/Area2D" to="Player" method="ExitedLightZone"]
 [connection signal="button_up" from="CanvasLayer/BoxContainer/Button" to="Player" method="PlayerBuiltTorch"]
+[connection signal="button_up" from="CanvasLayer/BoxContainer/Button/lamp_postButton" to="Player" method="PlayerBuiltLamp"]
 
 [editable path="Rock"]
 [editable path="Torch"]

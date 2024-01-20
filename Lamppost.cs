@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Lamppost : Node2D
 {
@@ -9,14 +10,24 @@ public partial class Lamppost : Node2D
 	ProgressBar FuelBar;
 	Label GrassLbl, WoodLbl;
     ResourceSignals signals;
+    List<int> lampID = new List<int>();
+    int ID;
+
     bool PlayerInLight = false;
 	bool PlayerInRange = false;
+    int grassCost = 1;
+    int woodCost = 1;
 	float LightPercentage = 1;
 	float LightZoneDefault;
 	float LightTexureScaleDefault;
+    
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+        ID++;
+        lampID.Add(ID);
+
+       /* int grass = Player.Inventory.inventoryScript.Grass;*/
 
 		LightZone = GetNode<Area2D>("Area2D");
 		Light = GetNode<PointLight2D>("PointLight2D");
@@ -47,7 +58,7 @@ public partial class Lamppost : Node2D
         GD.Print("Torch has faded away!");
         if (PlayerInLight)
 		{
-			LightSignals.EmitSignal("DecreaseInLightAmount");
+			LightSignals.EmitSignal("RemoveLightArea");
 		}
     }
 	private void OnPlayerEnter(Node2D body)
@@ -56,7 +67,8 @@ public partial class Lamppost : Node2D
 		{
 			PlayerInLight = true;
 			FuelBar.Visible = true;
-		}
+            LightSignals.EmitSignal("AddLightArea");
+        }
 	}
 	private void OnPlayerExit(Node2D body)
 	{
@@ -64,6 +76,7 @@ public partial class Lamppost : Node2D
         {
             PlayerInLight = false;
             FuelBar.Visible = false;
+            LightSignals.EmitSignal("RemoveLightArea");
         }
     }
 
@@ -86,12 +99,19 @@ public partial class Lamppost : Node2D
     {
         if (@event.IsActionPressed("Interact") && PlayerInRange == true)
         {
-            if(Player.Inventory.inventoryScript.Grass >= 1) signals.EmitSignal("TakeGrass");
+            GD.Print("interaction");
+            GD.Print(ID.ToString());
+            if (Player.Inventory.inventoryScript.Grass >= 1)
+            {
+                signals.EmitSignal("TakeGrass", grassCost);
+            }
+
+           
           
         }
         if (@event.IsActionPressed("ALTInteract") && PlayerInRange == true)
         {
-            if (Player.Inventory.inventoryScript.Wood >= 1) signals.EmitSignal("TakeLog");
+            if (Player.Inventory.inventoryScript.Wood >= 1) signals.EmitSignal("TakeLog", woodCost);
         }
     }
 }

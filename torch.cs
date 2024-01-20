@@ -37,7 +37,7 @@ public partial class torch : Node2D
         GD.Print("Torch has faded away!");
         if (PlayerInLight)
 		{
-			LightSignals.EmitSignal("DecreaseInLightAmount");
+			LightSignals.EmitSignal("RemoveLightArea");
 		}
     }
 	private void OnPlayerEnter(Node2D body)
@@ -45,6 +45,7 @@ public partial class torch : Node2D
 		if (body.IsInGroup("Player"))
 		{
 			PlayerInLight = true;
+			LightSignals.EmitSignal("AddLightArea");
 		}
 	}
 	private void OnPlayerExit(Node2D body)
@@ -52,6 +53,7 @@ public partial class torch : Node2D
         if (body.IsInGroup("Player"))
         {
             PlayerInLight = false;
-        }
+			LightSignals.EmitSignal("RemoveLightArea");
+		}
     }
 }

@@ -4,9 +4,11 @@ using System;
 public partial class LightSignals : Node
 {
     [Signal]
-    public delegate void DecreaseInLightAmountEventHandler();
+    public delegate void TakeGrassEventHandler(int grassCost);
     [Signal]
-    public delegate void TakeGrassEventHandler();
+    public delegate void TakeLogEventHandler(int woodCost);
     [Signal]
-    public delegate void TakeLogEventHandler();
+    public delegate void AddLightAreaEventHandler();
+    [Signal]
+    public delegate void RemoveLightAreaEventHandler();
 }

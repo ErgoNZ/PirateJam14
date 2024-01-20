@@ -48,7 +48,6 @@ wait_time = 0.5
 autostart = true
 
 [node name="GrassLabel" type="Label" parent="."]
-visible = false
 offset_left = -108.0
 offset_top = -69.0
 offset_right = -10.0
@@ -56,7 +55,6 @@ offset_bottom = -46.0
 text = "E: Grass 10%"
 
 [node name="WoodLabel" type="Label" parent="."]
-visible = false
 offset_left = 12.0
 offset_top = -69.0
 offset_right = 110.0

@@ -40,7 +40,8 @@ public partial class GrassLogic : Node2D
 	{
 		if (@event.IsActionPressed("Interact") && PlayerCanReach == true)
 		{
-            QueueFree();
+			//deletes grass node
+           /* QueueFree();*/
             GD.Print("Grass was gathered and gave " + GrassAmount +" grass!");
 			signals.EmitSignal("GrassCollection", GrassAmount);		
 		}
