@@ -19,7 +19,7 @@ fill = 2
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_p2fd8"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Main Scene" type="Node2D"]
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(663, 412)
