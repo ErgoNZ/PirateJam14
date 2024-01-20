@@ -9,22 +9,12 @@ public partial class Player : CharacterBody2D
 	public int Hp = 100;
 	PointLight2D Light = new PointLight2D();
 	public int InLightZones = 0;
-	Inventory inventory = new Inventory();
-	ResourceSignals ResSignals;
+    ResourceSignals ResSignals;
 	LightSignals LightSignals;
 	Label Grass, Logs, Rocks;
 	PackedScene Torch;
 	PackedScene Lamp;
-
-	public class Inventory
-	{
-		public static Inventory inventoryScript;
-
-		public int Rocks;
-		public int Grass;
-		public int Wood;
-	}
-
+	Inventory inventory;
 	public override void _Ready()
 	{
 		playerScript = this;
@@ -34,16 +24,15 @@ public partial class Player : CharacterBody2D
 		InLightZones = 0;
 		ResSignals = GetNode<ResourceSignals>("/root/ResourceSignals");
 		LightSignals = GetNode<LightSignals>("/root/LightSignals");
+		inventory = GetNode<Inventory>("/root/Inventory");
 		Grass = GetNode<Label>("../CanvasLayer/BoxContainer/GrassAmount");
 		Logs = GetNode<Label>("../CanvasLayer/BoxContainer/LogAmount");
 		Rocks = GetNode<Label>("../CanvasLayer/BoxContainer/RockAmount");
 		Torch = GD.Load<PackedScene>("res://Objects/torch.tscn");
 		Lamp = GD.Load<PackedScene>("res://Objects/Lamppost.tscn");
-		ResSignals.WoodCollection += CollectLogs;
-		ResSignals.GrassCollection += CollectGrass;
-		ResSignals.RockCollection += CollectRocks;
-		LightSignals.TakeGrass += TakeGrass;
-		LightSignals.TakeLog += TakeLog;
+		ResSignals.Wood += HandleLogs;
+		ResSignals.Grass += HandleGrass;
+		ResSignals.Rock += HandleRocks;
 		LightSignals.AddLightArea += AddLightArea;
 		LightSignals.RemoveLightArea += RemoveLightArea;
 	}
@@ -90,14 +79,15 @@ public partial class Player : CharacterBody2D
 			Light.TextureScale = 0f;
 			Light.Energy = 0f;
 		}
+		if(InLightZones < 0) InLightZones = 0;
 		GD.Print("In " + InLightZones + " Light Zones");
 	}
 	//updates labels for the inventory
 	private void UpdateInv()
 	{
-		Grass.Text = "Grass: " + inventory.Grass;
-		Logs.Text = "Logs: " + inventory.Wood;
-		Rocks.Text = "Rocks: " + inventory.Rocks;
+		Grass.Text = "Grass: " + Inventory.Grass;
+		Logs.Text = "Logs: " + Inventory.Wood;
+		Rocks.Text = "Rocks: " + Inventory.Rocks;
 	}
 	//adds and removes light zones that the player is in
 	private void AddLightArea()
@@ -108,28 +98,28 @@ public partial class Player : CharacterBody2D
     {
 		InLightZones--;
     }
-	private void CollectRocks(int RocksGained)
+	private void HandleRocks(int RockDelta)
 	{
-		inventory.Rocks += RocksGained;
+		Inventory.Rocks += RockDelta;
 		UpdateInv();
 	}
-	public void CollectLogs(int WoodGained)
+	public void HandleLogs(int WoodDelta)
 	{
-		inventory.Wood += WoodGained;
+		Inventory.Wood += WoodDelta;
 		UpdateInv();
 	}
-	private void CollectGrass(int GrassGained)
+	private void HandleGrass(int GrassDelta)
 	{
-		inventory.Grass += GrassGained;
+		Inventory.Grass += GrassDelta;
 		UpdateInv();
 	}
 	//method for building a torch 
 	private void PlayerBuiltTorch()
 	{
-		if (inventory.Grass >= 2 && inventory.Wood >= 1)
+		if (Inventory.Grass >= 2 && Inventory.Wood >= 1)
 		{
-			inventory.Grass -= 2;
-			inventory.Wood -= 1;
+			Inventory.Grass -= 2;
+			Inventory.Wood -= 1;
 			UpdateInv();
 			Node2D SpawnedTorch;
 			SpawnedTorch = (Node2D)Torch.Instantiate();
@@ -140,26 +130,15 @@ public partial class Player : CharacterBody2D
 	//method for building a lamp
 	private void PlayerBuiltLamp()
 	{
-		if (inventory.Wood >= 2 && inventory.Rocks >= 2)
+		if (Inventory.Wood >= 2 && Inventory.Rocks >= 2)
 		{
-			inventory.Rocks -= 2;
-			inventory.Wood -= 2;
+			Inventory.Rocks -= 2;
+			Inventory.Wood -= 2;
 			UpdateInv();
 			Node2D SpawnedLamp;
 			SpawnedLamp = (Node2D)Lamp.Instantiate();
 			AddSibling(SpawnedLamp);
 			SpawnedLamp.Position = this.Position;
 		}
-	}
-	//removing resources from the player based on the cost of the building
-	private void TakeGrass(int grassCost)
-	{
-		inventory.Wood -= grassCost;
-		UpdateInv();
-	}
-    private void TakeLog(int woodCost)
-    {
-		inventory.Wood -= woodCost;
-		UpdateInv();
 	}
 }

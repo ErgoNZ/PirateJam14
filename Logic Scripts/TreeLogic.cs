@@ -41,7 +41,7 @@ public partial class TreeLogic : Node2D
 		if (@event.IsActionPressed("Interact") && PlayerCanReach == true)
 		{
 			GD.Print("Wood was gathered and gave " + WoodAmount +" wood!");
-			signals.EmitSignal("WoodCollection",WoodAmount);
+			signals.EmitSignal("Wood",WoodAmount);
 		}
 	}
 }

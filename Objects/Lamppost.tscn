@@ -14,7 +14,7 @@ script = ExtResource("1_lbcg1")
 [node name="ForcedInteractionRange" type="Area2D" parent="."]
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ForcedInteractionRange"]
+[node name="PermCollisionShape2D" type="CollisionShape2D" parent="ForcedInteractionRange"]
 scale = Vector2(8, 8)
 shape = SubResource("CircleShape2D_dns7g")
 
@@ -25,7 +25,8 @@ offset_top = 57.0
 offset_right = -42.0
 offset_bottom = 97.0
 scale = Vector2(4.21675, 0.411482)
-value = 100.0
+max_value = 1.0
+value = 1.0
 show_percentage = false
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
@@ -48,6 +49,7 @@ wait_time = 0.5
 autostart = true
 
 [node name="GrassLabel" type="Label" parent="."]
+visible = false
 offset_left = -108.0
 offset_top = -69.0
 offset_right = -10.0
@@ -55,6 +57,7 @@ offset_bottom = -46.0
 text = "E: Grass 10%"
 
 [node name="WoodLabel" type="Label" parent="."]
+visible = false
 offset_left = 12.0
 offset_top = -69.0
 offset_right = 110.0

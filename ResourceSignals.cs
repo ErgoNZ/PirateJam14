@@ -4,9 +4,9 @@ using System;
 public partial class ResourceSignals : Node
 {
 	[Signal]
-	public delegate void GrassCollectionEventHandler(int GrassGained);
+	public delegate void GrassEventHandler(int GrassGained);
 	[Signal]
-	public delegate void WoodCollectionEventHandler(int WoodGained);
+	public delegate void WoodEventHandler(int WoodGained);
 	[Signal]
-	public delegate void RockCollectionEventHandler(int RocksGained);
+	public delegate void RockEventHandler(int RocksGained);
 }

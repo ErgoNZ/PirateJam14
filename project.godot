@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 ResourceSignals="*res://ResourceSignals.cs"
 LightSignals="*res://LightSignals.cs"
+Inventory="*res://Inventory.cs"
 
 [display]
 

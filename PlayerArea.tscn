@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvr3vdgt8skoo"]
+[gd_scene load_steps=12 format=3 uid="uid://dvr3vdgt8skoo"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_ynn1u"]
 [ext_resource type="TileSet" uid="uid://06q2bvu62dyy" path="res://new_tile_set.tres" id="2_au76m"]
 [ext_resource type="Texture2D" uid="uid://bx154o8kavlc5" path="res://SpotLight.tres" id="2_jynco"]
 [ext_resource type="PackedScene" uid="uid://1586cd67vpov" path="res://Objects/Tree.tscn" id="4_64e1x"]
-[ext_resource type="PackedScene" uid="uid://w1iwj6p7pjtt" path="res://Objects/torch.tscn" id="4_dgl4v"]
 [ext_resource type="PackedScene" uid="uid://bnejc41chigtx" path="res://Objects/Rock.tscn" id="4_vinfl"]
 [ext_resource type="PackedScene" uid="uid://dart44ga7gb5k" path="res://Objects/Grass.tscn" id="4_vmcku"]
 [ext_resource type="PackedScene" uid="uid://1eh0gjuraas" path="res://Objects/Lamppost.tscn" id="8_yqs5w"]
@@ -71,15 +70,6 @@ position = Vector2(465, 242)
 [node name="Rock" parent="." instance=ExtResource("4_vinfl")]
 position = Vector2(630, 240)
 
-[node name="Torch" parent="." instance=ExtResource("4_dgl4v")]
-position = Vector2(585, 457)
-
-[node name="CollisionShape2D" parent="Torch/Area2D" index="0"]
-position = Vector2(-219, -94)
-
-[node name="Torch2" parent="." instance=ExtResource("4_dgl4v")]
-position = Vector2(547, 196)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="BoxContainer" type="BoxContainer" parent="CanvasLayer"]
@@ -141,16 +131,10 @@ text = "Cost:
 2 log"
 
 [node name="Lamppost" parent="." instance=ExtResource("8_yqs5w")]
-position = Vector2(958, 131)
+position = Vector2(566, 451)
 
 [connection signal="timeout" from="Player/Lantern/Timer" to="Player" method="LightTick"]
-[connection signal="body_entered" from="Torch/Area2D" to="Player" method="EnteredLightZone"]
-[connection signal="body_exited" from="Torch/Area2D" to="Player" method="ExitedLightZone"]
-[connection signal="body_entered" from="Torch2/Area2D" to="Player" method="EnteredLightZone"]
-[connection signal="body_exited" from="Torch2/Area2D" to="Player" method="ExitedLightZone"]
 [connection signal="button_up" from="CanvasLayer/BoxContainer/Button" to="Player" method="PlayerBuiltTorch"]
 [connection signal="button_up" from="CanvasLayer/BoxContainer/Button/lamp_postButton" to="Player" method="PlayerBuiltLamp"]
 
 [editable path="Rock"]
-[editable path="Torch"]
-[editable path="Torch2"]

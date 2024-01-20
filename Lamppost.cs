@@ -5,14 +5,11 @@ using System.Collections.Generic;
 public partial class Lamppost : Node2D
 {
 	LightSignals LightSignals;
+    ResourceSignals ResourceSignals;
 	Area2D LightZone, ForcedInteractionRange;
 	PointLight2D Light;
 	ProgressBar FuelBar;
 	Label GrassLbl, WoodLbl;
-    ResourceSignals signals;
-    List<int> lampID = new List<int>();
-    int ID;
-
     bool PlayerInLight = false;
 	bool PlayerInRange = false;
     int grassCost = 1;
@@ -24,15 +21,11 @@ public partial class Lamppost : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-        ID++;
-        lampID.Add(ID);
-
-       /* int grass = Player.Inventory.inventoryScript.Grass;*/
-
 		LightZone = GetNode<Area2D>("Area2D");
 		Light = GetNode<PointLight2D>("PointLight2D");
 		LightSignals = GetNode<LightSignals>("/root/LightSignals");
-		FuelBar = GetNode<ProgressBar>("ProgressBar");
+        ResourceSignals = GetNode<ResourceSignals>("/root/ResourceSignals");
+        FuelBar = GetNode<ProgressBar>("ProgressBar");
 		ForcedInteractionRange = GetNode<Area2D>("ForcedInteractionRange");
 		GrassLbl = GetNode<Label>("GrassLabel");
         WoodLbl = GetNode<Label>("WoodLabel");
@@ -42,20 +35,25 @@ public partial class Lamppost : Node2D
 
 	private void LightTick()
 	{
-        LightPercentage -= 0.01f;
-        LightZone.Scale = new(LightZoneDefault * LightPercentage, LightZoneDefault * LightPercentage);
-        Light.TextureScale = LightTexureScaleDefault * LightPercentage;
+        if (LightPercentage > 0)
+        {
+            LightPercentage -= 0.01f;
+        }
+        else
+        {
+            LightPercentage = 0;
+        }
+        LightZone.Scale = new(MathF.Abs(LightZoneDefault * LightPercentage), MathF.Abs(LightZoneDefault * LightPercentage));
+        Light.TextureScale = MathF.Abs(LightTexureScaleDefault * LightPercentage);
         FuelBar.Value = LightPercentage;
         if (LightZone.Scale.X <= 0)
         {
-            TorchDespawn();
+            LightFaded();
         }
     }
 
-	private void TorchDespawn()
+	private void LightFaded()
 	{
-        QueueFree();
-        GD.Print("Torch has faded away!");
         if (PlayerInLight)
 		{
 			LightSignals.EmitSignal("RemoveLightArea");
@@ -66,7 +64,6 @@ public partial class Lamppost : Node2D
 		if (body.IsInGroup("Player"))
 		{
 			PlayerInLight = true;
-			FuelBar.Visible = true;
             LightSignals.EmitSignal("AddLightArea");
         }
 	}
@@ -75,7 +72,6 @@ public partial class Lamppost : Node2D
         if (body.IsInGroup("Player"))
         {
             PlayerInLight = false;
-            FuelBar.Visible = false;
             LightSignals.EmitSignal("RemoveLightArea");
         }
     }
@@ -99,19 +95,23 @@ public partial class Lamppost : Node2D
     {
         if (@event.IsActionPressed("Interact") && PlayerInRange == true)
         {
-            GD.Print("interaction");
-            GD.Print(ID.ToString());
-            if (Player.Inventory.inventoryScript.Grass >= 1)
+            GD.Print(Inventory.Grass);
+            if (Inventory.Grass >= 1)
             {
-                signals.EmitSignal("TakeGrass", grassCost);
+                ResourceSignals.EmitSignal("Grass", -1);
+                LightPercentage += 0.1f;
+                if (LightPercentage > 1) LightPercentage = 1;
             }
-
-           
-          
         }
         if (@event.IsActionPressed("ALTInteract") && PlayerInRange == true)
         {
-            if (Player.Inventory.inventoryScript.Wood >= 1) signals.EmitSignal("TakeLog", woodCost);
+            GD.Print(Inventory.Wood);
+            if (Inventory.Wood >= 1)
+            {
+                ResourceSignals.EmitSignal("Wood", -1);
+                LightPercentage += 0.4f;
+                if (LightPercentage > 1) LightPercentage = 1;
+            }
         }
     }
 }

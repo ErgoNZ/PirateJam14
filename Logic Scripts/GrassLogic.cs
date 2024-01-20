@@ -43,7 +43,7 @@ public partial class GrassLogic : Node2D
 			//deletes grass node
            /* QueueFree();*/
             GD.Print("Grass was gathered and gave " + GrassAmount +" grass!");
-			signals.EmitSignal("GrassCollection", GrassAmount);		
+			signals.EmitSignal("Grass", GrassAmount);		
 		}
 	}
 }

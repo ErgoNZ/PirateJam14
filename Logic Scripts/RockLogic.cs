@@ -41,7 +41,7 @@ public partial class RockLogic : Node2D
 		if (@event.IsActionPressed("Interact") && PlayerCanReach == true)
 		{
 			GD.Print("Rock was gathered and gave " + RockAmount +" rocks!");
-			signals.EmitSignal("RockCollection", RockAmount);
+			signals.EmitSignal("Rock", RockAmount);
 		}
 	}
 }
