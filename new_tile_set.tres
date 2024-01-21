@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://06q2bvu62dyy"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://06q2bvu62dyy"]
 
 [ext_resource type="Texture2D" uid="uid://dbqfn2jcmcy4o" path="res://Assets/Tiles2.png" id="1_2irya"]
+[ext_resource type="Texture2D" uid="uid://dytf35f1gvngp" path="res://Assets/harvestable.png" id="2_n3ar1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhysd"]
 texture = ExtResource("1_2irya")
@@ -84,7 +85,24 @@ texture_region_size = Vector2i(100, 100)
 5:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:4/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mqkfs"]
+texture = ExtResource("2_n3ar1")
+texture_region_size = Vector2i(100, 100)
+0:0/size_in_atlas = Vector2i(2, 4)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+2:2/size_in_atlas = Vector2i(1, 2)
+2:2/0 = 0
+2:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:2/0/physics_layer_0/angular_velocity = 0.0
+2:0/size_in_atlas = Vector2i(2, 2)
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+
 [resource]
 tile_size = Vector2i(100, 100)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jhysd")
+sources/1 = SubResource("TileSetAtlasSource_mqkfs")

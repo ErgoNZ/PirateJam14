@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dvr3vdgt8skoo"]
+[gd_scene load_steps=13 format=3 uid="uid://dvr3vdgt8skoo"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_ynn1u"]
 [ext_resource type="TileSet" uid="uid://06q2bvu62dyy" path="res://new_tile_set.tres" id="2_au76m"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://1586cd67vpov" path="res://Objects/Tree.tscn" id="4_64e1x"]
 [ext_resource type="PackedScene" uid="uid://bnejc41chigtx" path="res://Objects/Rock.tscn" id="4_vinfl"]
 [ext_resource type="PackedScene" uid="uid://dart44ga7gb5k" path="res://Objects/Grass.tscn" id="4_vmcku"]
+[ext_resource type="PackedScene" uid="uid://bpxbpp07hxk6k" path="res://Objects/ResourceNode.tscn" id="8_5ne35"]
 [ext_resource type="PackedScene" uid="uid://1eh0gjuraas" path="res://Objects/Lamppost.tscn" id="8_yqs5w"]
 
 [sub_resource type="Gradient" id="Gradient_apk54"]
@@ -39,7 +40,7 @@ texture = SubResource("GradientTexture2D_k2kcp")
 texture_scale = 44.28
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
-position = Vector2(574, 319)
+position = Vector2(788, 212)
 script = ExtResource("1_ynn1u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -50,8 +51,7 @@ scale = Vector2(20, 20)
 texture = SubResource("PlaceholderTexture2D_p2fd8")
 
 [node name="Lantern" type="PointLight2D" parent="Player"]
-color = Color(0.941176, 0.266667, 0, 1)
-energy = 3.0
+color = Color(0.878431, 0.619608, 0, 1)
 texture = ExtResource("2_jynco")
 texture_scale = 10.0
 
@@ -63,13 +63,13 @@ autostart = true
 zoom = Vector2(1.66, 1.66)
 
 [node name="Grass" parent="." instance=ExtResource("4_vmcku")]
-position = Vector2(546, 101)
+position = Vector2(936, 488)
 
 [node name="Tree" parent="." instance=ExtResource("4_64e1x")]
-position = Vector2(465, 242)
+position = Vector2(638, 713)
 
 [node name="Rock" parent="." instance=ExtResource("4_vinfl")]
-position = Vector2(630, 240)
+position = Vector2(829, 650)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -136,6 +136,15 @@ position = Vector2(566, 451)
 
 [node name="TileMap2" type="TileMap" parent="."]
 format = 2
+
+[node name="ResourceNode" parent="." instance=ExtResource("8_5ne35")]
+position = Vector2(856, 159)
+
+[node name="ResourceNode2" parent="." instance=ExtResource("8_5ne35")]
+position = Vector2(858, 315)
+
+[node name="ResourceNode3" parent="." instance=ExtResource("8_5ne35")]
+position = Vector2(690, 170)
 
 [connection signal="timeout" from="Player/Lantern/Timer" to="Player" method="LightTick"]
 [connection signal="button_up" from="CanvasLayer/BoxContainer/Button" to="Player" method="PlayerBuiltTorch"]

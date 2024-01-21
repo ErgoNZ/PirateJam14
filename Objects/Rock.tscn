@@ -1,11 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bnejc41chigtx"]
 
 [ext_resource type="Script" path="res://Logic Scripts/RockLogic.cs" id="1_88yyu"]
+[ext_resource type="Texture2D" uid="uid://dytf35f1gvngp" path="res://Assets/harvestable.png" id="2_ry0uf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aakeu"]
 radius = 40.0888
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_e1bc5"]
 
 [node name="Rock" type="Node2D"]
 script = ExtResource("1_88yyu")
@@ -16,6 +15,12 @@ script = ExtResource("1_88yyu")
 scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_aakeu")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ry0uf")
+region_enabled = true
+region_rect = Rect2(200, 0, 200, 200)
+
 [node name="Label" type="Label" parent="."]
 visible = false
 offset_left = -19.0
@@ -24,10 +29,6 @@ offset_right = 21.0
 offset_bottom = -42.0
 text = "E"
 horizontal_alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(25, 25)
-texture = SubResource("PlaceholderTexture2D_e1bc5")
 
 [connection signal="body_entered" from="Area2D" to="." method="PlayerInRange"]
 [connection signal="body_exited" from="Area2D" to="." method="PlayerLeftRange"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpxbpp07hxk6k"]
+
+[ext_resource type="Script" path="res://Logic Scripts/ResourceNodeLogic.cs" id="1_awp1p"]
+
+[node name="ResourceNode" type="Node2D"]
+script = ExtResource("1_awp1p")

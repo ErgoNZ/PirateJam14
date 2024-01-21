@@ -77,14 +77,17 @@ public partial class Lamppost : Node2D
 
     private void PlayerInInteractionRange(Node2D body)
     {
-		PlayerInRange = true;
-		FuelBar.Visible = PlayerInRange;
-		GrassLbl.Visible = PlayerInRange;
-		WoodLbl.Visible = PlayerInRange;
+        PlayerInRange = true;
+        changeVisibility(PlayerInRange);
     }
     private void PlayerLeftInteractionRange(Node2D body)
     {
         PlayerInRange = false;
+        changeVisibility(PlayerInRange);
+    }
+
+    private void changeVisibility(bool PlayerInRange)
+    {
         FuelBar.Visible = PlayerInRange;
         GrassLbl.Visible = PlayerInRange;
         WoodLbl.Visible = PlayerInRange;
