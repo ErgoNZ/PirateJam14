@@ -96,7 +96,7 @@ layout_mode = 2
 text = "Sanity"
 horizontal_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/BoxContainer"]
+[node name="SanityBar" type="ProgressBar" parent="CanvasLayer/BoxContainer"]
 layout_mode = 2
 
 [node name="Button" type="Button" parent="CanvasLayer/BoxContainer"]

@@ -5,8 +5,10 @@ public partial class Player : CharacterBody2D
 {
 	public static Player playerScript;
 	public const float Speed = 300.0f;
+	public float LanternScale;
+	public float Fuel = 1;
 	public const float LanternEnergy = 3f;
-	public int Hp = 100;
+	public double Hp = 100;
 	PointLight2D Light = new PointLight2D();
 	public int InLightZones = 0;
     ResourceSignals ResSignals;
@@ -15,6 +17,7 @@ public partial class Player : CharacterBody2D
 	PackedScene Torch;
 	PackedScene Lamp;
 	Inventory inventory;
+	ProgressBar SanityBar;
 	public override void _Ready()
 	{
 		playerScript = this;
@@ -28,6 +31,7 @@ public partial class Player : CharacterBody2D
 		Grass = GetNode<Label>("../CanvasLayer/BoxContainer/GrassAmount");
 		Logs = GetNode<Label>("../CanvasLayer/BoxContainer/LogAmount");
 		Rocks = GetNode<Label>("../CanvasLayer/BoxContainer/RockAmount");
+		SanityBar = GetNode<ProgressBar>("../CanvasLayer/BoxContainer/SanityBar");
 		Torch = GD.Load<PackedScene>("res://Objects/torch.tscn");
 		Lamp = GD.Load<PackedScene>("res://Objects/Lamppost.tscn");
 		ResSignals.Wood += HandleLogs;
@@ -35,6 +39,7 @@ public partial class Player : CharacterBody2D
 		ResSignals.Rock += HandleRocks;
 		LightSignals.AddLightArea += AddLightArea;
 		LightSignals.RemoveLightArea += RemoveLightArea;
+		LanternScale = Light.TextureScale;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -61,26 +66,23 @@ public partial class Player : CharacterBody2D
 	//every interval on the timer for the light sources
 	private void LightTick()
 	{
-		if (Light.TextureScale > 0 && InLightZones == 0)
+        Light.TextureScale = Math.Abs(LanternScale * Fuel);
+		if (InLightZones > 0)
 		{
-			Light.TextureScale -= 0.3f;
-		}
-		else if (InLightZones > 0 && Light.TextureScale < 10)
-		{
-			Light.TextureScale += 1f;
-			Light.Energy = LanternEnergy;
-		}
-		if (Light.TextureScale > 10)
-		{
-			Light.TextureScale = 10f;
-		}
-		if (Light.TextureScale <= 0)
-		{
-			Light.TextureScale = 0f;
-			Light.Energy = 0f;
+			Fuel += 0.015f;
 		}
 		if(InLightZones < 0) InLightZones = 0;
+		if(Fuel <= 0 && InLightZones == 0) 
+		{
+			Hp -= 0.5;
+		}
 		GD.Print("In " + InLightZones + " Light Zones");
+		SanityBar.Value = Hp;
+		if(InLightZones == 0)
+		{
+            Fuel -= 0.03f;
+        }
+		if(Fuel < 0) Fuel = 0;
 	}
 	//updates labels for the inventory
 	private void UpdateInv()
