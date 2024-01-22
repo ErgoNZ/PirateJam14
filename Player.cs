@@ -18,12 +18,14 @@ public partial class Player : CharacterBody2D
 	PackedScene Lamp;
 	Inventory inventory;
 	ProgressBar SanityBar;
+	Area2D LightZone;
 	public override void _Ready()
 	{
 		playerScript = this;
 		// Called every time the node is added to the scene.
 		// Initialization here.
 		Light = (PointLight2D)GetNode("Lantern");
+		LightZone = GetNode<Area2D>("Lantern/PlayerLightZone");
 		InLightZones = 0;
 		ResSignals = GetNode<ResourceSignals>("/root/ResourceSignals");
 		LightSignals = GetNode<LightSignals>("/root/LightSignals");
@@ -67,7 +69,9 @@ public partial class Player : CharacterBody2D
 	private void LightTick()
 	{
         Light.TextureScale = Math.Abs(LanternScale * Fuel);
-		if (InLightZones > 0)
+		LightZone.Scale = new(Math.Abs(1f * Fuel), Math.Abs(1f * Fuel));
+
+        if (InLightZones > 0)
 		{
 			Fuel += 0.015f;
 		}

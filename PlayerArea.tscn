@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvr3vdgt8skoo"]
+[gd_scene load_steps=14 format=3 uid="uid://dvr3vdgt8skoo"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_ynn1u"]
 [ext_resource type="TileSet" uid="uid://06q2bvu62dyy" path="res://new_tile_set.tres" id="2_au76m"]
@@ -20,6 +20,9 @@ fill = 2
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_p2fd8"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_m6w11"]
+radius = 211.152
+
 [node name="Main Scene" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -40,7 +43,7 @@ texture = SubResource("GradientTexture2D_k2kcp")
 texture_scale = 44.28
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
-position = Vector2(788, 212)
+position = Vector2(775, 394)
 script = ExtResource("1_ynn1u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -58,6 +61,11 @@ texture_scale = 10.0
 [node name="Timer" type="Timer" parent="Player/Lantern"]
 wait_time = 0.5
 autostart = true
+
+[node name="PlayerLightZone" type="Area2D" parent="Player/Lantern" groups=["Player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Lantern/PlayerLightZone"]
+shape = SubResource("CircleShape2D_m6w11")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(1.66, 1.66)
@@ -132,7 +140,7 @@ text = "Cost:
 2 log"
 
 [node name="Lamppost" parent="." instance=ExtResource("8_yqs5w")]
-position = Vector2(566, 451)
+position = Vector2(355, 309)
 
 [node name="TileMap2" type="TileMap" parent="."]
 format = 2
