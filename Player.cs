@@ -16,7 +16,8 @@ public partial class Player : CharacterBody2D
 	Label Grass, Logs, Rocks;
 	PackedScene Torch;
 	PackedScene Lamp;
-	Inventory inventory;
+    PackedScene GameOver;
+    Inventory inventory;
 	ProgressBar SanityBar;
 	Area2D LightZone;
 	public override void _Ready()
@@ -36,7 +37,8 @@ public partial class Player : CharacterBody2D
 		SanityBar = GetNode<ProgressBar>("../CanvasLayer/BoxContainer/SanityBar");
 		Torch = GD.Load<PackedScene>("res://Objects/torch.tscn");
 		Lamp = GD.Load<PackedScene>("res://Objects/Lamppost.tscn");
-		ResSignals.Wood += HandleLogs;
+		GameOver = GD.Load<PackedScene>("res://GameOver.tscn");
+        ResSignals.Wood += HandleLogs;
 		ResSignals.Grass += HandleGrass;
 		ResSignals.Rock += HandleRocks;
 		LightSignals.AddLightArea += AddLightArea;
@@ -70,7 +72,10 @@ public partial class Player : CharacterBody2D
 	{
         Light.TextureScale = Math.Abs(LanternScale * Fuel);
 		LightZone.Scale = new(Math.Abs(1f * Fuel), Math.Abs(1f * Fuel));
-
+		if(Hp <= 0)
+		{
+            GetTree().ChangeSceneToPacked(GameOver);
+        }
         if (InLightZones > 0)
 		{
 			Fuel += 0.015f;
