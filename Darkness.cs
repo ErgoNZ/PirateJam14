@@ -38,12 +38,12 @@ public partial class Darkness : TileMap
 		{
   			for (int x = 0; x < 5; x++) 
 			{
-				GD.Print("i:" + i + ", x:" + x);
+				/*GD.Print("i:" + i + ", x:" + x);*/
 				CurrentCell = new(i, x);
 				LightChecker.Position = new(i * 100, x * 100);
 				foreach (Area2D area in LightChecker.GetOverlappingAreas()){
 					if (area.IsInGroup("LightAreas")){
-						GD.Print("stuff removed");
+						/*GD.Print("stuff removed");*/
 						SetCell( 2, CurrentCell, -1, Default, -1);
 						SetCell( 1, CurrentCell, -1, Default, -1);
 						SetCell( 0, CurrentCell, -1, Default, -1);
