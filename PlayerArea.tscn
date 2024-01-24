@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dvr3vdgt8skoo"]
+[gd_scene load_steps=25 format=3 uid="uid://dvr3vdgt8skoo"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_ynn1u"]
 [ext_resource type="TileSet" uid="uid://06q2bvu62dyy" path="res://new_tile_set.tres" id="2_au76m"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bs23jprjxfbik" path="res://Assets/darker.png" id="11_qokn3"]
 [ext_resource type="Texture2D" uid="uid://fq84ejt10wum" path="res://Assets/dark.png" id="12_6qse2"]
 [ext_resource type="Script" path="res://Darkness.cs" id="13_1s4l3"]
+[ext_resource type="PackedScene" uid="uid://bm2enb1joauvk" path="res://Objects/workstation.tscn" id="13_r2ut1"]
 
 [sub_resource type="Gradient" id="Gradient_apk54"]
 offsets = PackedFloat32Array(0)
@@ -244,6 +245,7 @@ position = Vector2(858, 315)
 position = Vector2(690, 170)
 
 [node name="Darkness" type="TileMap" parent="."]
+visible = false
 scale = Vector2(0.8, 0.8)
 tile_set = SubResource("TileSet_8qv0h")
 format = 2
@@ -261,6 +263,9 @@ script = ExtResource("13_1s4l3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Darkness/Area2D"]
 shape = SubResource("RectangleShape2D_i1byd")
+
+[node name="Workstation" parent="." instance=ExtResource("13_r2ut1")]
+position = Vector2(426, 345)
 
 [connection signal="timeout" from="Player/Lantern/Timer" to="Player" method="LightTick"]
 [connection signal="button_up" from="CanvasLayer/BoxContainer/Button" to="Player" method="PlayerBuiltTorch"]
