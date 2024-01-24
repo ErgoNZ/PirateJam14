@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dvr3vdgt8skoo"]
+[gd_scene load_steps=24 format=3 uid="uid://dvr3vdgt8skoo"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_ynn1u"]
 [ext_resource type="TileSet" uid="uid://06q2bvu62dyy" path="res://new_tile_set.tres" id="2_au76m"]
@@ -7,10 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://bnejc41chigtx" path="res://Objects/Rock.tscn" id="4_vinfl"]
 [ext_resource type="PackedScene" uid="uid://dart44ga7gb5k" path="res://Objects/Grass.tscn" id="4_vmcku"]
 [ext_resource type="PackedScene" uid="uid://bpxbpp07hxk6k" path="res://Objects/ResourceNode.tscn" id="8_5ne35"]
-[ext_resource type="PackedScene" uid="uid://1eh0gjuraas" path="res://Objects/Lamppost.tscn" id="8_yqs5w"]
+[ext_resource type="Texture2D" uid="uid://t55xf3mvn6ka" path="res://Assets/darkness_sheet.png" id="9_quqgx"]
+[ext_resource type="Texture2D" uid="uid://cf8m3hje1qkv1" path="res://Assets/darkness.png" id="10_prawx"]
+[ext_resource type="Texture2D" uid="uid://bs23jprjxfbik" path="res://Assets/darker.png" id="11_qokn3"]
+[ext_resource type="Texture2D" uid="uid://fq84ejt10wum" path="res://Assets/dark.png" id="12_6qse2"]
+[ext_resource type="Script" path="res://Darkness.cs" id="13_1s4l3"]
 
 [sub_resource type="Gradient" id="Gradient_apk54"]
-offsets = PackedFloat32Array(0, 0.00649351)
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.325441, 0.325441, 0.325441, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_k2kcp"]
 gradient = SubResource("Gradient_apk54")
@@ -23,9 +28,100 @@ fill = 2
 [sub_resource type="CircleShape2D" id="CircleShape2D_m6w11"]
 radius = 211.152
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x0cny"]
+texture = ExtResource("9_quqgx")
+texture_region_size = Vector2i(300, 300)
+0:0/next_alternative_id = 5
+0:0/animation_columns = 4
+0:0/animation_speed = 12.0
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/animation_frame_4/duration = 1.0
+0:0/animation_frame_5/duration = 1.0
+0:0/animation_frame_6/duration = 1.0
+0:0/animation_frame_7/duration = 1.0
+0:0/animation_frame_8/duration = 1.0
+0:0/animation_frame_9/duration = 1.0
+0:0/animation_frame_10/duration = 1.0
+0:0/animation_frame_11/duration = 1.0
+0:0/animation_frame_12/duration = 1.0
+0:0/animation_frame_13/duration = 1.0
+0:0/animation_frame_14/duration = 1.0
+0:0/animation_frame_15/duration = 1.0
+0:0/animation_frame_16/duration = 1.0
+0:0/animation_frame_17/duration = 1.0
+0:0/animation_frame_18/duration = 1.0
+0:0/animation_frame_19/duration = 1.0
+0:0/animation_frame_20/duration = 1.0
+0:0/animation_frame_21/duration = 1.0
+0:0/animation_frame_22/duration = 1.0
+0:0/animation_frame_23/duration = 1.0
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/flip_h = true
+0:0/1/flip_v = true
+0:0/2 = 2
+0:0/2/flip_h = true
+0:0/3 = 3
+0:0/3/flip_v = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p1b0q"]
+texture = ExtResource("10_prawx")
+texture_region_size = Vector2i(100, 100)
+0:0/size_in_atlas = Vector2i(3, 3)
+0:0/next_alternative_id = 4
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/flip_h = true
+0:0/1/flip_v = true
+0:0/2 = 2
+0:0/2/flip_h = true
+0:0/3 = 3
+0:0/3/flip_v = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3tl51"]
+texture = ExtResource("11_qokn3")
+texture_region_size = Vector2i(100, 100)
+0:0/size_in_atlas = Vector2i(3, 3)
+0:0/next_alternative_id = 4
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/flip_h = true
+0:0/1/flip_v = true
+0:0/2 = 2
+0:0/2/flip_h = true
+0:0/3 = 3
+0:0/3/flip_v = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5h4bm"]
+texture = ExtResource("12_6qse2")
+texture_region_size = Vector2i(100, 100)
+0:0/size_in_atlas = Vector2i(3, 3)
+0:0/next_alternative_id = 4
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/flip_h = true
+0:0/1/flip_v = true
+0:0/2 = 2
+0:0/2/flip_h = true
+0:0/3 = 3
+0:0/3/flip_v = true
+
+[sub_resource type="TileSet" id="TileSet_8qv0h"]
+tile_size = Vector2i(100, 100)
+sources/0 = SubResource("TileSetAtlasSource_x0cny")
+sources/1 = SubResource("TileSetAtlasSource_p1b0q")
+sources/2 = SubResource("TileSetAtlasSource_3tl51")
+sources/3 = SubResource("TileSetAtlasSource_5h4bm")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i1byd"]
+size = Vector2(300, 300)
+
 [node name="Main Scene" type="Node2D"]
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="Background" type="TileMap" parent="."]
 position = Vector2(-21, -3)
 scale = Vector2(0.5, 0.5)
 tile_set = ExtResource("2_au76m")
@@ -34,13 +130,12 @@ layer_0/tile_data = PackedInt32Array(983064, 196608, 4, 983085, 1, 0, 1900572, 1
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(663, 412)
-color = Color(0, 0, 0, 1)
-energy = 16.0
-blend_mode = 2
+energy = 1.68
+blend_mode = 1
 shadow_enabled = true
 shadow_color = Color(0.470588, 0, 0.929412, 0.321569)
 texture = SubResource("GradientTexture2D_k2kcp")
-texture_scale = 44.28
+texture_scale = 50.0
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
 position = Vector2(775, 394)
@@ -62,7 +157,7 @@ texture_scale = 10.0
 wait_time = 0.5
 autostart = true
 
-[node name="PlayerLightZone" type="Area2D" parent="Player/Lantern" groups=["Player"]]
+[node name="PlayerLightZone" type="Area2D" parent="Player/Lantern" groups=["LightAreas", "Player"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Lantern/PlayerLightZone"]
 shape = SubResource("CircleShape2D_m6w11")
@@ -139,12 +234,6 @@ text = "Cost:
 2 rock
 2 log"
 
-[node name="Lamppost" parent="." instance=ExtResource("8_yqs5w")]
-position = Vector2(355, 309)
-
-[node name="TileMap2" type="TileMap" parent="."]
-format = 2
-
 [node name="ResourceNode" parent="." instance=ExtResource("8_5ne35")]
 position = Vector2(856, 159)
 
@@ -153,6 +242,25 @@ position = Vector2(858, 315)
 
 [node name="ResourceNode3" parent="." instance=ExtResource("8_5ne35")]
 position = Vector2(690, 170)
+
+[node name="Darkness" type="TileMap" parent="."]
+scale = Vector2(0.8, 0.8)
+tile_set = SubResource("TileSet_8qv0h")
+format = 2
+layer_0/name = "Dark"
+layer_0/z_index = 1025
+layer_1/name = "Darker"
+layer_1/z_index = 1026
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Darkest"
+layer_2/z_index = 1027
+layer_2/tile_data = PackedInt32Array()
+script = ExtResource("13_1s4l3")
+
+[node name="Area2D" type="Area2D" parent="Darkness"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Darkness/Area2D"]
+shape = SubResource("RectangleShape2D_i1byd")
 
 [connection signal="timeout" from="Player/Lantern/Timer" to="Player" method="LightTick"]
 [connection signal="button_up" from="CanvasLayer/BoxContainer/Button" to="Player" method="PlayerBuiltTorch"]

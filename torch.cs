@@ -18,6 +18,7 @@ public partial class torch : Node2D
 		LightSignals = GetNode<LightSignals>("/root/LightSignals");
 		LightZoneDefault = LightZone.Scale.X;
 		LightTexureScaleDefault = Light.TextureScale;
+		LightZone.AddToGroup("LightAreas");
 	}
 
 	private void LightTick()

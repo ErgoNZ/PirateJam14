@@ -36,6 +36,7 @@ public partial class Lamppost : Node2D
 		LightZoneDefault = LightZone.Scale.X;
 		LightTexureScaleDefault = Light.TextureScale;
 		LightEnergyDefault = Light.Energy;
+		LightZone.AddToGroup("LightAreas");
 	}
 
 	private void LightTick()

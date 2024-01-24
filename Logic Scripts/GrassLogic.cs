@@ -41,8 +41,8 @@ public partial class GrassLogic : Node2D
 		if (@event.IsActionPressed("Interact") && PlayerCanReach == true)
 		{
 			//deletes grass node
-           /* QueueFree();*/
-            GD.Print("Grass was gathered and gave " + GrassAmount +" grass!");
+		   /* QueueFree();*/
+			GD.Print("Grass was gathered and gave " + GrassAmount +" grass!");
 			signals.EmitSignal("Grass", GrassAmount);		
 		}
 	}
