@@ -11,7 +11,7 @@ public partial class Player : CharacterBody2D
 	public double Hp = 100;
 	PointLight2D Light = new PointLight2D();
 	public int InLightZones = 0;
-    ResourceSignals ResSignals;
+	ResourceSignals ResSignals;
 	LightSignals LightSignals;
 	Label Grass, Logs, Rocks;
 	PackedScene Torch;
@@ -70,13 +70,15 @@ public partial class Player : CharacterBody2D
 	//every interval on the timer for the light sources
 	private void LightTick()
 	{
-        Light.TextureScale = Math.Abs(LanternScale * Fuel);
+		Light.TextureScale = Math.Abs(LanternScale * Fuel);
 		LightZone.Scale = new(Math.Abs(1f * Fuel), Math.Abs(1f * Fuel));
+
+
 		if(Hp <= 0)
 		{
-            GetTree().ChangeSceneToPacked(GameOver);
-        }
-        if (InLightZones > 0)
+       GetTree().ChangeSceneToPacked(GameOver);
+    }
+    if (InLightZones > 0)
 		{
 			Fuel += 0.015f;
 		}
@@ -89,8 +91,8 @@ public partial class Player : CharacterBody2D
 		SanityBar.Value = Hp;
 		if(InLightZones == 0)
 		{
-            Fuel -= 0.03f;
-        }
+			Fuel -= 0.03f;
+		}
 		if(Fuel < 0) Fuel = 0;
 	}
 	//updates labels for the inventory
@@ -102,13 +104,13 @@ public partial class Player : CharacterBody2D
 	}
 	//adds and removes light zones that the player is in
 	private void AddLightArea()
-    {
+	{
 		InLightZones++;
 	}
 	private void RemoveLightArea()
-    {
+	{
 		InLightZones--;
-    }
+	}
 	private void HandleRocks(int RockDelta)
 	{
 		Inventory.Rocks += RockDelta;
