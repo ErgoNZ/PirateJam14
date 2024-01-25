@@ -34,6 +34,7 @@ text = "E: Access Workstation
 "
 
 [node name="displayGUIControl" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -102.0
@@ -51,13 +52,16 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_504yn")
 flat = true
 
 [node name="lblLampLevel" type="Label" parent="displayGUIControl"]
+layout_mode = 0
 offset_left = 110.0
 offset_top = -7.1552
 offset_right = 266.0
 offset_bottom = 15.8448
 text = "Lamp Upgrade LV X:"
+horizontal_alignment = 1
 
 [node name="lblLamplvlGrass" type="Label" parent="displayGUIControl/lblLampLevel"]
+layout_mode = 0
 offset_left = 46.0
 offset_top = 51.1086
 offset_right = 123.0
@@ -65,6 +69,7 @@ offset_bottom = 74.1086
 text = "Grass:000"
 
 [node name="lblLamplvlWood" type="Label" parent="displayGUIControl/lblLampLevel"]
+layout_mode = 0
 offset_left = 83.0
 offset_top = 27.5987
 offset_right = 160.0
@@ -72,50 +77,57 @@ offset_bottom = 50.5987
 text = "Wood:000"
 
 [node name="lblLamplvlRocks" type="Label" parent="displayGUIControl/lblLampLevel"]
+layout_mode = 0
 offset_top = 27.5987
 offset_right = 77.0
 offset_bottom = 50.5987
 text = "Rocks:000"
 
-[node name="btnTorchLevel" type="Button" parent="displayGUIControl"]
+[node name="btnLanternLevel" type="Button" parent="displayGUIControl"]
 layout_mode = 0
-offset_left = -78.0
-offset_top = -14.3104
-offset_right = -70.0
-offset_bottom = -6.31038
+offset_left = -95.0
+offset_top = -11.2434
+offset_right = -87.0
+offset_bottom = -3.24341
 scale = Vector2(21.0672, 10.6843)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_afnvm")
 flat = true
 
-[node name="lblTorchLevel" type="Label" parent="displayGUIControl"]
-offset_left = -72.0
-offset_top = -7.15524
+[node name="lblLanternLevel" type="Label" parent="displayGUIControl"]
+layout_mode = 0
+offset_left = -89.0
+offset_top = -4.08827
 offset_right = 84.0
-offset_bottom = 15.8448
-text = "Torch Upgrade LV X:"
+offset_bottom = 18.9118
+text = "Lantern Upgrade LV X:"
+horizontal_alignment = 1
 
-[node name="lblTorchlvlGrass" type="Label" parent="displayGUIControl/lblTorchLevel"]
+[node name="lblLanternlvlGrass" type="Label" parent="displayGUIControl/lblLanternLevel"]
+layout_mode = 0
 offset_left = 46.0
 offset_top = 51.1086
 offset_right = 123.0
 offset_bottom = 74.1086
 text = "Grass:000"
 
-[node name="lblTorchlvlWood" type="Label" parent="displayGUIControl/lblTorchLevel"]
+[node name="lblLanternlvlWood" type="Label" parent="displayGUIControl/lblLanternLevel"]
+layout_mode = 0
 offset_left = 83.0
 offset_top = 27.5987
 offset_right = 160.0
 offset_bottom = 50.5987
 text = "Wood:000"
 
-[node name="lblTorchlvlRocks" type="Label" parent="displayGUIControl/lblTorchLevel"]
+[node name="lblLanternlvlRocks" type="Label" parent="displayGUIControl/lblLanternLevel"]
+layout_mode = 0
 offset_left = 3.0
 offset_top = 27.5987
 offset_right = 80.0
 offset_bottom = 50.5987
 text = "Rocks:000"
 
-[node name="btnTorchLevel2" type="Button" parent="displayGUIControl"]
+[node name="btnCampfireUnlock" type="Button" parent="displayGUIControl"]
+layout_mode = 0
 offset_left = -75.0
 offset_top = 76.6629
 offset_right = -67.0
@@ -124,27 +136,73 @@ scale = Vector2(21.0672, 10.6843)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_afnvm")
 flat = true
 
-[node name="lblLampLevel2" type="Label" parent="displayGUIControl"]
+[node name="lblCampfireUnlock" type="Label" parent="displayGUIControl"]
+layout_mode = 0
 offset_left = -70.0
 offset_top = 79.7294
 offset_right = 86.0
 offset_bottom = 102.729
-text = "Lamp Upgrade LV X:"
+text = "Unlock Campfire:"
+horizontal_alignment = 1
 
-[node name="lblLamplvlRocks" type="Label" parent="displayGUIControl/lblLampLevel2"]
+[node name="lblCampfirelvlRocks" type="Label" parent="displayGUIControl/lblCampfireUnlock"]
+layout_mode = 0
 offset_top = 27.5986
 offset_right = 77.0
 offset_bottom = 50.5986
 text = "Rocks:000"
 
-[node name="lblLamplvlGrass" type="Label" parent="displayGUIControl/lblLampLevel2"]
+[node name="lblCampfirelvlGrass" type="Label" parent="displayGUIControl/lblCampfireUnlock"]
+layout_mode = 0
 offset_left = 46.0
 offset_top = 51.1086
 offset_right = 123.0
 offset_bottom = 74.1086
 text = "Grass:000"
 
-[node name="lblLamplvlWood" type="Label" parent="displayGUIControl/lblLampLevel2"]
+[node name="lblCampfirelvlWood" type="Label" parent="displayGUIControl/lblCampfireUnlock"]
+layout_mode = 0
+offset_left = 83.0
+offset_top = 27.5987
+offset_right = 160.0
+offset_bottom = 50.5987
+text = "Wood:000"
+
+[node name="btnResourcelvl" type="Button" parent="displayGUIControl"]
+offset_left = 110.0
+offset_top = 77.6855
+offset_right = 118.0
+offset_bottom = 85.6855
+scale = Vector2(21.0672, 10.6843)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_afnvm")
+flat = true
+
+[node name="lblResourcelvl" type="Label" parent="displayGUIControl"]
+offset_left = 109.0
+offset_top = 83.8186
+offset_right = 265.0
+offset_bottom = 106.819
+theme_override_font_sizes/font_size = 14
+text = "Resource Collection LV X:"
+horizontal_alignment = 1
+
+[node name="lblResourcelvlRocks" type="Label" parent="displayGUIControl/lblResourcelvl"]
+layout_mode = 0
+offset_top = 27.5986
+offset_right = 77.0
+offset_bottom = 50.5986
+text = "Rocks:000"
+
+[node name="lblResourcelvlGrass" type="Label" parent="displayGUIControl/lblResourcelvl"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 51.1086
+offset_right = 123.0
+offset_bottom = 74.1086
+text = "Grass:000"
+
+[node name="lblResourcelvlWood" type="Label" parent="displayGUIControl/lblResourcelvl"]
+layout_mode = 0
 offset_left = 83.0
 offset_top = 27.5987
 offset_right = 160.0
@@ -154,5 +212,6 @@ text = "Wood:000"
 [connection signal="body_entered" from="ForcedInteractionRange" to="." method="inInteractionArea"]
 [connection signal="body_exited" from="ForcedInteractionRange" to="." method="leftInteractionArea"]
 [connection signal="button_up" from="displayGUIControl/btnLampLevel" to="." method="lampUpgradeCheck"]
-[connection signal="button_up" from="displayGUIControl/btnTorchLevel" to="." method="torchUpgradeCheck"]
-[connection signal="button_up" from="displayGUIControl/btnTorchLevel2" to="." method="torchUpgradeCheck"]
+[connection signal="button_up" from="displayGUIControl/btnLanternLevel" to="." method="lanternUpgradeCheck"]
+[connection signal="button_up" from="displayGUIControl/btnCampfireUnlock" to="." method="campfireUpgradeCheck"]
+[connection signal="button_up" from="displayGUIControl/btnResourcelvl" to="." method="resourceUpgradeCheck"]
