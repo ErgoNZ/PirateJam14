@@ -61,6 +61,14 @@ public partial class Player : CharacterBody2D
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		if (direction != Vector2.Zero)
 		{
+			if (Input.IsActionPressed("ui_left") || Input.IsActionPressed("ui_down") && !Input.IsActionPressed("ui_right"))
+			{
+				Light.Position = new (-47, 30);
+			}
+			else{ Light.Position = new (47, 30); }
+			
+			
+			
 			velocity.X = direction.X * Speed;
 			velocity.Y = direction.Y * Speed;
 			Animator.Set("parameters/Idle/blend_position", velocity);
@@ -89,32 +97,32 @@ public partial class Player : CharacterBody2D
 	{
 		Light.TextureScale = Math.Abs(LanternScale * Fuel);
 		LightZone.Scale = new(Math.Abs(1f * Fuel), Math.Abs(1f * Fuel));
-        int Spawn = Random.Next(1, 1000);
-        if (Spawn >= 500)
-        {
+		int Spawn = Random.Next(1, 1000);
+		if (Spawn >= 500)
+		{
 			bool AlreadyCalled = false;
 			if(LightSourceList.Lights.Count > 1 || LightSourceList.Lights[0].Active) 
 			{
 				for (int i = 0; i < 5; i++) 
 				{
-                    int CallLightId = Random.Next(1, LightSourceList.Lights.Count);
-                    if (LightSourceList.Lights[CallLightId].Active)
-                    {
-                        LightSourceList.Lights[CallLightId].Light.Call("SpawnEyes");
+					int CallLightId = Random.Next(1, LightSourceList.Lights.Count);
+					if (LightSourceList.Lights[CallLightId].Active)
+					{
+						LightSourceList.Lights[CallLightId].Light.Call("SpawnEyes");
 						AlreadyCalled = true;
 						break;
-                    }
-                }
-                if (!AlreadyCalled)
-                {
-                    if (LightSourceList.Lights[0].Active)
-                    {
-                        LightSourceList.Lights[0].Light.Call("SpawnEyes");
-                    }
-                }
-            }
-        }
-        if (Hp <= 0)
+					}
+				}
+				if (!AlreadyCalled)
+				{
+					if (LightSourceList.Lights[0].Active)
+					{
+						LightSourceList.Lights[0].Light.Call("SpawnEyes");
+					}
+				}
+			}
+		}
+		if (Hp <= 0)
 		{
 			GetTree().ChangeSceneToPacked(GameOver);
 		}

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://1eh0gjuraas"]
+[gd_scene load_steps=6 format=3 uid="uid://1eh0gjuraas"]
 
 [ext_resource type="Script" path="res://Lamppost.cs" id="1_lbcg1"]
 [ext_resource type="Texture2D" uid="uid://cjn47he8l7e51" path="res://TorchLight.tres" id="2_kl8dd"]
+[ext_resource type="Texture2D" uid="uid://c8yjmndsbf5b8" path="res://Assets/lamppost.png" id="2_p5oud"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dns7g"]
 
@@ -11,7 +12,26 @@ radius = 40.2003
 [node name="Lamp Post" type="Node2D"]
 script = ExtResource("1_lbcg1")
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-27, -22)
+color = Color(1, 0.847059, 0.47451, 1)
+energy = 0.5
+texture = ExtResource("2_kl8dd")
+texture_scale = 5.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(27, -22)
+color = Color(1, 0.847059, 0.47451, 1)
+energy = 0.5
+texture = ExtResource("2_kl8dd")
+texture_scale = 5.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_p5oud")
+
 [node name="ForcedInteractionRange" type="Area2D" parent="."]
+position = Vector2(0, -22)
 monitorable = false
 
 [node name="PermCollisionShape2D" type="CollisionShape2D" parent="ForcedInteractionRange"]
@@ -31,16 +51,8 @@ max_value = 1.0
 value = 1.0
 show_percentage = false
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0.937255, 0.407843, 0, 1)
-energy = 2.0
-texture = ExtResource("2_kl8dd")
-texture_scale = 5.0
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(1, -1)
+position = Vector2(1, -23)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(4, 4)

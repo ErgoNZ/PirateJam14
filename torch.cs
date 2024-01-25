@@ -8,9 +8,9 @@ public partial class torch : Node2D
 	Area2D LightZone;
 	PointLight2D Light;
 	Random Random = new Random();
-    PackedScene Eyes;
-    LightInfo lightInfo;
-    bool PlayerInLight = false;
+	PackedScene Eyes;
+	LightInfo lightInfo;
+	bool PlayerInLight = false;
 	float LightPercentage = 1;
 	float LightZoneDefault;
 	float LightTexureScaleDefault;
@@ -25,24 +25,24 @@ public partial class torch : Node2D
 		LightZoneDefault = LightZone.Scale.X;
 		LightTexureScaleDefault = Light.TextureScale;
 		LightZone.AddToGroup("LightAreas");
-        lightInfo = new LightInfo();
-        lightInfo.Light = this;
-        lightInfo.Active = true;
-        Lights.Add(lightInfo);
+		lightInfo = new LightInfo();
+		lightInfo.Light = this;
+		lightInfo.Active = true;
+		Lights.Add(lightInfo);
 		LightID = Lights.Count - 1;
 		Eyes = GD.Load<PackedScene>("res://Objects/Eyes.tscn");
-    }
-    public void SpawnEyes()
-    {
-        Node2D SpawnedEyes;
-        Vector2 Displacement = new(Random.Next(-150, 150), Random.Next(-150, 150));
-        SpawnedEyes = (Node2D)Eyes.Instantiate();
-        AddChild(SpawnedEyes);
-        SpawnedEyes.Position = Displacement;
-        SpawnedEyes.AddToGroup("Eyes");
-        EyeCount++;
-    }
-    private void LightTick()
+	}
+	public void SpawnEyes()
+	{
+		Node2D SpawnedEyes;
+		Vector2 Displacement = new(Random.Next(-150, 150), Random.Next(-150, 150));
+		SpawnedEyes = (Node2D)Eyes.Instantiate();
+		AddChild(SpawnedEyes);
+		SpawnedEyes.Position = Displacement;
+		SpawnedEyes.AddToGroup("Eyes");
+		EyeCount++;
+	}
+	private void LightTick()
 	{
 		LightPercentage -= (0.01f + (0.01f * EyeCount));
 		LightZone.Scale = new(LightZoneDefault * LightPercentage, LightZoneDefault * LightPercentage);

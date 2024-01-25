@@ -284,7 +284,7 @@ blend_point_0/pos = Vector2(-1, 0)
 blend_point_1/node = SubResource("AnimationNodeAnimation_a7yff")
 blend_point_1/pos = Vector2(1, 0)
 blend_point_2/node = SubResource("AnimationNodeAnimation_6cf68")
-blend_point_2/pos = Vector2(0, 1)
+blend_point_2/pos = Vector2(0, 0.9)
 blend_point_3/node = SubResource("AnimationNodeAnimation_jfkgo")
 blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
@@ -510,7 +510,7 @@ layer_0/tile_data = PackedInt32Array(983064, 196608, 4, 983085, 1, 0, 1900572, 1
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(663, 412)
-energy = 1.68
+energy = 2.13
 blend_mode = 1
 shadow_enabled = true
 shadow_color = Color(0.470588, 0, 0.929412, 0.321569)
@@ -527,6 +527,7 @@ shape = SubResource("RectangleShape2D_f4xlv")
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_j6w3o")
+flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
 libraries = {
@@ -540,13 +541,15 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_pnuih")
 advance_expression_base_node = NodePath("")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Idle/blend_position = Vector2(-0.4736, -0.718062)
+parameters/Idle/blend_position = Vector2(0.0592, -0.978836)
 parameters/LowSanIdle/blend_position = Vector2(-1.2608, 0.359375)
 parameters/LowSanWalk/blend_position = Vector2(-0.3808, -1.92188)
 parameters/Walk/blend_position = Vector2(-1.0368, -0.90625)
 
 [node name="Lantern" type="PointLight2D" parent="Player"]
-color = Color(0.878431, 0.619608, 0, 1)
+position = Vector2(47, 30)
+color = Color(0.996078, 0.780392, 0.627451, 1)
+energy = 1.5
 texture = ExtResource("2_jynco")
 texture_scale = 10.0
 

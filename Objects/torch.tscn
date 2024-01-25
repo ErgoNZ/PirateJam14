@@ -1,7 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://w1iwj6p7pjtt"]
+[gd_scene load_steps=9 format=3 uid="uid://w1iwj6p7pjtt"]
 
 [ext_resource type="Texture2D" uid="uid://cjn47he8l7e51" path="res://TorchLight.tres" id="1_lnl02"]
 [ext_resource type="Script" path="res://torch.cs" id="1_w6lxo"]
+[ext_resource type="Texture2D" uid="uid://dlhdqswk5jcji" path="res://Assets/torch.png" id="3_j7uyy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdxul"]
+atlas = ExtResource("3_j7uyy")
+region = Rect2(0, 0, 100, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yicft"]
+atlas = ExtResource("3_j7uyy")
+region = Rect2(100, 0, 100, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ihij"]
+atlas = ExtResource("3_j7uyy")
+region = Rect2(200, 0, 100, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dogql"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gdxul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yicft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ihij")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ralba"]
 radius = 40.2003
@@ -9,15 +39,21 @@ radius = 40.2003
 [node name="Torch" type="Node2D"]
 script = ExtResource("1_w6lxo")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_dogql")
+autoplay = "default"
+frame_progress = 0.250265
+
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0.937255, 0.407843, 0, 1)
-energy = 4.0
+position = Vector2(0, -42)
+color = Color(0.937255, 0.611765, 0, 1)
+energy = 0.5
 texture = ExtResource("1_lnl02")
 texture_scale = 5.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -42)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(4, 4)

@@ -7,13 +7,13 @@ public partial class Lamppost : Node2D
 	LightSignals LightSignals;
 	ResourceSignals ResourceSignals;
 	Area2D LightZone, ForcedInteractionRange;
-	PointLight2D Light;
+	PointLight2D Light, Light2;
 	ProgressBar FuelBar;
 	Label GrassLbl, WoodLbl;
 	PackedScene Eyes;
 	Random Random = new Random();
 	LightInfo lightInfo;
-    bool PlayerInLight = false;
+	bool PlayerInLight = false;
 	bool PlayerInRange = false;
 	int grassCost = 1;
 	int woodCost = 1;
@@ -28,6 +28,7 @@ public partial class Lamppost : Node2D
 	{
 		LightZone = GetNode<Area2D>("Area2D");
 		Light = GetNode<PointLight2D>("PointLight2D");
+		Light2 = GetNode<PointLight2D>("PointLight2D2");
 		LightSignals = GetNode<LightSignals>("/root/LightSignals");
 		ResourceSignals = GetNode<ResourceSignals>("/root/ResourceSignals");
 		FuelBar = GetNode<ProgressBar>("ProgressBar");
@@ -42,26 +43,26 @@ public partial class Lamppost : Node2D
 		lightInfo = new LightInfo();
 		lightInfo.Light = this;
 		lightInfo.Active = true;
-        Lights.Add(lightInfo);
-        LightID = Lights.Count - 1;
-    }
+		Lights.Add(lightInfo);
+		LightID = Lights.Count - 1;
+	}
 	public void SpawnEyes()
 	{
-        Node2D SpawnedEyes;
-        Vector2 Displacement = new(Random.Next(-150, 150), Random.Next(-150, 150));
-        SpawnedEyes = (Node2D)Eyes.Instantiate();
-        AddChild(SpawnedEyes);
-        SpawnedEyes.Position = Displacement;
-        SpawnedEyes.AddToGroup("Eyes");
-        EyeCount++;
-    }
+		Node2D SpawnedEyes;
+		Vector2 Displacement = new(Random.Next(-150, 150), Random.Next(-150, 150));
+		SpawnedEyes = (Node2D)Eyes.Instantiate();
+		AddChild(SpawnedEyes);
+		SpawnedEyes.Position = Displacement;
+		SpawnedEyes.AddToGroup("Eyes");
+		EyeCount++;
+	}
 	private void LightTick()
 	{
 		if (LightPercentage > 0)
 		{
 			LightPercentage = LightPercentage - (0.01f + (0.01f * EyeCount));
-            LightSourceList.Lights[LightID].Active = true;
-        }
+			LightSourceList.Lights[LightID].Active = true;
+		}
 		else
 		{
 			LightPercentage = 0;
@@ -69,6 +70,8 @@ public partial class Lamppost : Node2D
 		LightZone.Scale = new(MathF.Abs(LightZoneDefault * LightPercentage), MathF.Abs(LightZoneDefault * LightPercentage));
 		Light.TextureScale = MathF.Abs(LightTexureScaleDefault * LightPercentage);
 		Light.Energy = MathF.Abs(LightEnergyDefault * LightPercentage);
+		Light2.TextureScale = MathF.Abs(LightTexureScaleDefault * LightPercentage);
+		Light2.Energy = MathF.Abs(LightEnergyDefault * LightPercentage);
 		FuelBar.Value = LightPercentage;
 		if (LightZone.Scale.X <= 0)
 		{
