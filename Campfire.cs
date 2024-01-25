@@ -2,7 +2,7 @@ using Godot;
 using System;
 using static LightSourceList;
 
-public partial class Lamppost : Node2D
+public partial class Campfire : Node2D
 {
 	LightSignals LightSignals;
 	ResourceSignals ResourceSignals;
@@ -11,8 +11,7 @@ public partial class Lamppost : Node2D
 	ProgressBar FuelBar;
 	Label GrassLbl, WoodLbl;
 	PackedScene Eyes;
-	Random Random = new Random();
-	LightInfo lightInfo;
+    LightInfo lightInfo;
     bool PlayerInLight = false;
 	bool PlayerInRange = false;
 	int grassCost = 1;
@@ -23,6 +22,8 @@ public partial class Lamppost : Node2D
 	float LightEnergyDefault;
 	int EyeCount = 0;
 	int LightID;
+	bool Active = false;
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -39,28 +40,19 @@ public partial class Lamppost : Node2D
 		LightTexureScaleDefault = Light.TextureScale;
 		LightEnergyDefault = Light.Energy;
 		LightZone.AddToGroup("LightAreas");
-		lightInfo = new LightInfo();
-		lightInfo.Light = this;
-		lightInfo.Active = true;
+        lightInfo = new LightInfo();
+        lightInfo.Light = this;
+        lightInfo.Active = false;
         Lights.Add(lightInfo);
         LightID = Lights.Count - 1;
     }
-	public void SpawnEyes()
-	{
-        Node2D SpawnedEyes;
-        Vector2 Displacement = new(Random.Next(-150, 150), Random.Next(-150, 150));
-        SpawnedEyes = (Node2D)Eyes.Instantiate();
-        AddChild(SpawnedEyes);
-        SpawnedEyes.Position = Displacement;
-        SpawnedEyes.AddToGroup("Eyes");
-        EyeCount++;
-    }
+
 	private void LightTick()
 	{
-		if (LightPercentage > 0)
+		if (LightPercentage > 0 && Active)
 		{
 			LightPercentage = LightPercentage - (0.01f + (0.01f * EyeCount));
-            LightSourceList.Lights[LightID].Active = true;
+            lightInfo.Active = true;
         }
 		else
 		{
@@ -78,11 +70,11 @@ public partial class Lamppost : Node2D
 
 	private void LightFaded()
 	{
-		LightSourceList.Lights[LightID].Active = false;
-		if (PlayerInLight)
+        lightInfo.Active = false;
+        if (PlayerInLight)
 		{
 			LightSignals.EmitSignal("RemoveLightArea");
-		}
+        }
 	}
 	private void OnPlayerEnter(Node2D body)
 	{

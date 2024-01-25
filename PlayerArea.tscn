@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dvr3vdgt8skoo"]
+[gd_scene load_steps=26 format=3 uid="uid://dvr3vdgt8skoo"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_ynn1u"]
 [ext_resource type="TileSet" uid="uid://06q2bvu62dyy" path="res://new_tile_set.tres" id="2_au76m"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://fq84ejt10wum" path="res://Assets/dark.png" id="12_6qse2"]
 [ext_resource type="Script" path="res://Darkness.cs" id="13_1s4l3"]
 [ext_resource type="PackedScene" uid="uid://bm2enb1joauvk" path="res://Objects/workstation.tscn" id="13_r2ut1"]
+[ext_resource type="PackedScene" uid="uid://bdv2iao8tn3o4" path="res://Objects/Campfire.tscn" id="14_xfbbl"]
 
 [sub_resource type="Gradient" id="Gradient_apk54"]
 offsets = PackedFloat32Array(0)
@@ -266,6 +267,10 @@ shape = SubResource("RectangleShape2D_i1byd")
 
 [node name="Workstation" parent="." instance=ExtResource("13_r2ut1")]
 position = Vector2(426, 345)
+
+[node name="Campfire" parent="." instance=ExtResource("14_xfbbl")]
+visible = false
+position = Vector2(621, 374)
 
 [connection signal="timeout" from="Player/Lantern/Timer" to="Player" method="LightTick"]
 [connection signal="button_up" from="CanvasLayer/BoxContainer/Button" to="Player" method="PlayerBuiltTorch"]
