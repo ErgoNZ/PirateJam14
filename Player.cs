@@ -116,9 +116,6 @@ public partial class Player : CharacterBody2D
         }
         if (Hp <= 0)
 		{
-	   GetTree().ChangeSceneToPacked(GameOver);
-	}
-	if (InLightZones > 0)
 			GetTree().ChangeSceneToPacked(GameOver);
 		}
 		if (InLightZones > 0)
