@@ -23,6 +23,7 @@ public partial class Player : CharacterBody2D
 	AnimationTree Animator;
 	AnimationNodeStateMachinePlayback StateMachine;
 	
+	Random Random = new();
 	public override void _Ready()
 	{
 		playerScript = this;
@@ -88,13 +89,39 @@ public partial class Player : CharacterBody2D
 	{
 		Light.TextureScale = Math.Abs(LanternScale * Fuel);
 		LightZone.Scale = new(Math.Abs(1f * Fuel), Math.Abs(1f * Fuel));
-
-
-		if(Hp <= 0)
+        int Spawn = Random.Next(1, 1000);
+        if (Spawn >= 500)
+        {
+			bool AlreadyCalled = false;
+			if(LightSourceList.Lights.Count > 1 || LightSourceList.Lights[0].Active) 
+			{
+				for (int i = 0; i < 5; i++) 
+				{
+                    int CallLightId = Random.Next(1, LightSourceList.Lights.Count);
+                    if (LightSourceList.Lights[CallLightId].Active)
+                    {
+                        LightSourceList.Lights[CallLightId].Light.Call("SpawnEyes");
+						AlreadyCalled = true;
+						break;
+                    }
+                }
+                if (!AlreadyCalled)
+                {
+                    if (LightSourceList.Lights[0].Active)
+                    {
+                        LightSourceList.Lights[0].Light.Call("SpawnEyes");
+                    }
+                }
+            }
+        }
+        if (Hp <= 0)
 		{
 	   GetTree().ChangeSceneToPacked(GameOver);
 	}
 	if (InLightZones > 0)
+			GetTree().ChangeSceneToPacked(GameOver);
+		}
+		if (InLightZones > 0)
 		{
 			Fuel += 0.015f;
 		}

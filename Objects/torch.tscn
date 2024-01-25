@@ -27,6 +27,7 @@ shape = SubResource("CircleShape2D_ralba")
 wait_time = 0.5
 autostart = true
 
+[connection signal="child_exiting_tree" from="." to="." method="EyesDissapear"]
 [connection signal="body_entered" from="Area2D" to="." method="OnPlayerEnter"]
 [connection signal="body_exited" from="Area2D" to="." method="OnPlayerExit"]
 [connection signal="timeout" from="Area2D/Timer" to="." method="LightTick"]
