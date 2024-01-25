@@ -16,10 +16,13 @@ public partial class Player : CharacterBody2D
 	Label Grass, Logs, Rocks;
 	PackedScene Torch;
 	PackedScene Lamp;
-    PackedScene GameOver;
-    Inventory inventory;
+	PackedScene GameOver;
+	Inventory inventory;
 	ProgressBar SanityBar;
 	Area2D LightZone;
+	AnimationTree Animator;
+	AnimationNodeStateMachinePlayback StateMachine;
+	
 	public override void _Ready()
 	{
 		playerScript = this;
@@ -35,15 +38,17 @@ public partial class Player : CharacterBody2D
 		Logs = GetNode<Label>("../CanvasLayer/BoxContainer/LogAmount");
 		Rocks = GetNode<Label>("../CanvasLayer/BoxContainer/RockAmount");
 		SanityBar = GetNode<ProgressBar>("../CanvasLayer/BoxContainer/SanityBar");
+		Animator = GetNode<AnimationTree>("AnimationTree");
 		Torch = GD.Load<PackedScene>("res://Objects/torch.tscn");
 		Lamp = GD.Load<PackedScene>("res://Objects/Lamppost.tscn");
 		GameOver = GD.Load<PackedScene>("res://GameOver.tscn");
-        ResSignals.Wood += HandleLogs;
+		ResSignals.Wood += HandleLogs;
 		ResSignals.Grass += HandleGrass;
 		ResSignals.Rock += HandleRocks;
 		LightSignals.AddLightArea += AddLightArea;
 		LightSignals.RemoveLightArea += RemoveLightArea;
 		LanternScale = Light.TextureScale;
+		StateMachine = (AnimationNodeStateMachinePlayback)Animator.Get("parameters/playback");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -57,9 +62,20 @@ public partial class Player : CharacterBody2D
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Y = direction.Y * Speed;
+			Animator.Set("parameters/Idle/blend_position", velocity);
+			Animator.Set("parameters/Walk/blend_position", velocity);
+			Animator.Set("parameters/LowSanIdle/blend_position", velocity);
+			Animator.Set("parameters/LowSanWalk/blend_position", velocity);
+			
+			if (Hp < 31){ StateMachine.Travel("LowSanWalk");}
+			else { StateMachine.Travel("Walk");	}
+			
 		}
 		else
 		{
+			if (Hp < 31){ StateMachine.Travel("LowSanIdle");}
+			else { StateMachine.Travel("Idle");	}
+			
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 			velocity.Y = Mathf.MoveToward(Velocity.X, 0, Speed);
 		}
@@ -76,9 +92,9 @@ public partial class Player : CharacterBody2D
 
 		if(Hp <= 0)
 		{
-       GetTree().ChangeSceneToPacked(GameOver);
-    }
-    if (InLightZones > 0)
+	   GetTree().ChangeSceneToPacked(GameOver);
+	}
+	if (InLightZones > 0)
 		{
 			Fuel += 0.015f;
 		}
