@@ -141,7 +141,7 @@ public partial class Player : CharacterBody2D
 		}
 		if (InLightZones > 0)
 		{
-			Fuel += 0.015f;
+			Fuel += 0.015f * workstation.LanternLV;
 		}
 		if(InLightZones < 0) InLightZones = 0;
 		if(Fuel <= 0 && InLightZones == 0) 
@@ -152,7 +152,7 @@ public partial class Player : CharacterBody2D
 		SanityBar.Value = Hp;
 		if(InLightZones == 0)
 		{
-			Fuel -= 0.03f;
+			Fuel -= 0.03f/workstation.LanternLV;
 		}
 		if(Fuel < 0) Fuel = 0;
 	}

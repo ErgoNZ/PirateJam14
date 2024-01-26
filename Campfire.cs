@@ -48,20 +48,21 @@ public partial class Campfire : Node2D
 
 	private void LightTick()
 	{
-		if (LightPercentage > 0 && Active)
+		if(workstation.campfireUnlock)
+        {
+			this.Show();
+        }
+		if (LightPercentage > 0 && workstation.campfireUnlock)
 		{
 			LightPercentage = LightPercentage - (0.005f + (0.005f * EyeCount));
 			campfire.Active = true;
-		}
-		else
-		{
-			LightPercentage = 0;
 		}
 		LightZone.Scale = new(MathF.Abs(LightZoneDefault * LightPercentage), MathF.Abs(LightZoneDefault * LightPercentage));
 		Light.TextureScale = MathF.Abs(LightTexureScaleDefault * LightPercentage);
 		Light.Energy = MathF.Abs(LightEnergyDefault * LightPercentage);
 		FuelBar.Value = LightPercentage;
-		if (LightZone.Scale.X <= 0)
+
+		if (LightPercentage <= 0)
 		{
 			LightFaded();
 		}

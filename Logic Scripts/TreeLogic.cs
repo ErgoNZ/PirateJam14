@@ -5,7 +5,7 @@ public partial class TreeLogic : Node2D
 {
 	int WoodAmount = 0;
 	const int WoodMin = 1;
-	const int WoodMax = 4;
+	int WoodMax = 4;
 	public bool PlayerCanReach = false;
 	Random Random = new Random();
 	Label InteractIcon = new Label();
@@ -13,8 +13,14 @@ public partial class TreeLogic : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		int woodMultiplier = workstation.ResourceLV;
+		var w = WoodMin * woodMultiplier;
+		if(WoodMax + woodMultiplier < (WoodMin * woodMultiplier))
+        {
+			WoodMax = w;
+        }
 		signals = GetNode<ResourceSignals>("/root/ResourceSignals");
-		WoodAmount = Random.Next(WoodMin, WoodMax);
+		WoodAmount = Random.Next(WoodMin * woodMultiplier , WoodMax + woodMultiplier);
 		InteractIcon = (Label)GetNode("Label");	
 	}
 

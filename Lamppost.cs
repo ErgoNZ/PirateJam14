@@ -131,7 +131,7 @@ public partial class Lamppost : Node2D
 			if (Inventory.Grass >= 1)
 			{
 				ResourceSignals.EmitSignal("Grass", -1);
-				LightPercentage += 0.1f;
+				LightPercentage += 0.1f + ((float)0.02 * workstation.LampLV);
 				if (LightPercentage > 1) LightPercentage = 1;
 			}
 		}
@@ -141,7 +141,7 @@ public partial class Lamppost : Node2D
 			if (Inventory.Wood >= 1)
 			{
 				ResourceSignals.EmitSignal("Wood", -1);
-				LightPercentage += 0.4f;
+				LightPercentage += 0.4f + ((float)0.02 * workstation.LampLV);
 				if (LightPercentage > 1) LightPercentage = 1;
 			}
 		}

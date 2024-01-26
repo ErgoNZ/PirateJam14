@@ -5,7 +5,7 @@ public partial class GrassLogic : Node2D
 {
 	int GrassAmount = 0;
 	const int GrassMin = 1;
-	const int GrassMax = 7;
+	int GrassMax = 7;
 	public bool PlayerCanReach = false;
 	Random Random = new Random();
 	Label InteractIcon = new Label();
@@ -13,6 +13,15 @@ public partial class GrassLogic : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		int grassMultiplier = workstation.ResourceLV;
+		var w = GrassMin * grassMultiplier;
+		if (GrassMax + grassMultiplier < (GrassMin * grassMultiplier))
+		{
+			GrassMax = w;
+		}
+		signals = GetNode<ResourceSignals>("/root/ResourceSignals");
+		GrassAmount = Random.Next(GrassMin * grassMultiplier, GrassMax + grassMultiplier);
+
 		signals = GetNode<ResourceSignals>("/root/ResourceSignals");
 		GrassAmount = Random.Next(GrassMin, GrassMax);
 		InteractIcon = (Label)GetNode("Label");		

@@ -3,12 +3,24 @@ using System;
 
 public partial class workstation : Node2D
 {
-	int LanternLV = 1, LampLV = 1, ResourceLV = 1, CampfireLV = 1;
+	public static float LanternLV = 1, LampLV = 1, ResourceLV = 1, CampfireLV = 1;
 	
-	int resourcesRequired = 1;
-	bool campfireUnlock = false, LampUnlock = false;
+	int resourcesUpgradeCost = 1;
+
+	int lanternWoodUpgradeCost = 1;
+	int lanternGrassUpgradeCost = 1;
+
+	int lampRockUpgradeCost = 1;
+	int lampWoodUpgradeCost = 1;
+
+	int campfireRockUpgradeCost = 1;
+	int campfireWoodUpgradeCost = 1;
+
+	public static bool campfireUnlock = false, LampUnlock = false;
 	bool PlayerInRange = false;
 	bool PlayerInteracting = false;
+	Button lamppostButton;
+	Label lamppostLabel;
 	Area2D ForcedInteractionRange;
 	Control GUIContainer;
 	Label workstationLbl, lanternLevelLbl, lampLevelLbl, campfireLevelLbl, resourceLevelLbl;
@@ -16,10 +28,14 @@ public partial class workstation : Node2D
 	Label lanternWoodlbl, lanternGrassLbl;
 	Label lampWoodlbl, lampRocksLbl;
 	Label resourceWoodLbl, resourceGrassLbl, resourceRocksLbl;
+	Sprite2D background;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		lamppostButton = GetNode<Button>("../CanvasLayer/BoxContainer/Button/lamp_postButton");
+		lamppostLabel = GetNode<Label>("../CanvasLayer/BoxContainer/Button/lamp_postButton/Label");
+		background = GetNode<Sprite2D>("sprBlackBackground");
 		ForcedInteractionRange = GetNode<Area2D>("ForcedInteractionRange");
 		GUIContainer = GetNode<Control>("displayGUIControl");
 		workstationLbl = GetNode<Label>("workstationLabel");
@@ -45,27 +61,39 @@ public partial class workstation : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		resourceWoodLbl.Text = resourcesRequired.ToString();
-		resourceGrassLbl.Text = resourcesRequired.ToString();
-		resourceRocksLbl.Text = resourcesRequired.ToString();
-
-		lanternLevelLbl.Text = "Lantern Upgrade Level: " + LanternLV;
 		resourceLevelLbl.Text = "Resource Collection Level: " + ResourceLV;
+		resourceWoodLbl.Text = ": " + resourcesUpgradeCost.ToString();
+		resourceGrassLbl.Text = ": " + resourcesUpgradeCost.ToString();
+		resourceRocksLbl.Text = ": " + resourcesUpgradeCost.ToString();
+
+		lanternLevelLbl.Text = "Lantern Level: " + LanternLV;
+		lanternWoodlbl.Text = ": " + lanternWoodUpgradeCost.ToString();
+		lanternGrassLbl.Text = ": " + lanternGrassUpgradeCost.ToString();
+
 		if (LampUnlock)
 		{
-			lampLevelLbl.Text = "Lamp Upgrade Level: " + LampLV;
+			lampLevelLbl.Text = "Lamp Level: " + LampLV;
+			lampWoodlbl.Text = ": " + lampWoodUpgradeCost.ToString();
+			lampRocksLbl.Text = ": " + lampRockUpgradeCost.ToString();
 		}
 		else
 		{
 			lampLevelLbl.Text = "Unlock Lamp Post: ";
+			lampWoodlbl.Text = ": 5 ";
+			lampRocksLbl.Text = ": 10";
+
 		}
-		if(campfireUnlock)
+		if (campfireUnlock)
 		{
-			campfireLevelLbl.Text = "Campfire Unlocked";
+			campfireLevelLbl.Text = "Campfire Level: " + CampfireLV;
+			campfireWoodLbl.Text = ": " + campfireRockUpgradeCost.ToString();
+			campfireRocksLbl.Text = ": " + campfireWoodUpgradeCost.ToString();
 		}
 		else
 		{
 			campfireLevelLbl.Text = "Unlock Campfire: ";
+			campfireWoodLbl.Text = ": 10";
+			campfireRocksLbl.Text = ": 15";
 		}
 	}
 
@@ -83,6 +111,7 @@ public partial class workstation : Node2D
 	private void changeVisibility(bool PlayerInRange, bool PlayerInteracting)
 	{
 			GUIContainer.Visible = PlayerInteracting;
+			background.Visible = PlayerInteracting;
 		if (!PlayerInteracting)
 		{
 			workstationLbl.Visible = PlayerInRange;
@@ -94,26 +123,31 @@ public partial class workstation : Node2D
 	}
 	private void lanternUpgradeCheck()
 	{
-		doLanternUpgrade();
+		if(Inventory.Grass >= lanternGrassUpgradeCost && Inventory.Wood >= lanternWoodUpgradeCost)
+        {
+			Inventory.Grass = lanternGrassUpgradeCost;
+			Inventory.Wood -= lanternWoodUpgradeCost;
+			doLanternUpgrade();
+		}
 	}
 	private void lampUpgradeCheck()
 	{
-		int WoodCost = 1;
-		int	RocksCost = 1;
-
 		if (!LampUnlock)
 		{
 			if (Inventory.Wood >= 5 && Inventory.Rocks >= 10)
 			{
 				LampUnlock = true;
+				lamppostButton.Visible = true;
+				lamppostLabel.Visible = true;
+				
 			}	
 		}
 		else
 		{
-			if(Inventory.Wood >= WoodCost && Inventory.Rocks >= RocksCost)
+			if(Inventory.Wood >= lampWoodUpgradeCost && Inventory.Rocks >= lampRockUpgradeCost)
             {
-				Inventory.Wood -= WoodCost;
-				Inventory.Rocks -= RocksCost;
+				Inventory.Wood -= lampWoodUpgradeCost;
+				Inventory.Rocks -= lampRockUpgradeCost;
 				doLampUpgrade();
 			}
 			
@@ -123,19 +157,36 @@ public partial class workstation : Node2D
 	{
 		if(!campfireUnlock)
 		{
-			campfireUnlock = true;
+			if(Inventory.Wood >= 10 && Inventory.Rocks >= 15)
+            {
+				Inventory.Wood -= 10;
+				Inventory.Rocks -= 15;
+				campfireUnlock = true;
+			}
 		}
 		else
 		{
-			doCampfireUpgrade();
+			if(Inventory.Wood >= campfireWoodUpgradeCost && Inventory.Rocks >= campfireRockUpgradeCost)
+            {
+				Inventory.Wood -= campfireWoodUpgradeCost;
+				Inventory.Rocks -= campfireRockUpgradeCost;
+				doCampfireUpgrade();
+			}
 		}
 	}
 	private void resourceUpgradeCheck()
 	{
-		doResourceUpgrade();
+        if(Inventory.Wood >= resourcesUpgradeCost && Inventory.Rocks >= resourcesUpgradeCost && Inventory.Grass >= resourcesUpgradeCost)
+		{ 
+			Inventory.Wood -= resourcesUpgradeCost;
+			Inventory.Rocks -= resourcesUpgradeCost;
+			Inventory.Grass -= resourcesUpgradeCost;
+			doResourceUpgrade();
+		}
 	}
 	private void doResourceUpgrade()
 	{
+
 		ResourceLV++;
 	}
 	private void doLanternUpgrade()
@@ -148,7 +199,7 @@ public partial class workstation : Node2D
 	}
 	private void doCampfireUpgrade()
 	{
-
+		CampfireLV++;
 	}
 	public override void _Input(InputEvent @event)
 	{
