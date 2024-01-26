@@ -28,25 +28,25 @@ public partial class workstation : Node2D
 		lanternLevelLbl.Text = "Lantern Upgrade Level: " + LanternLV;
 		resourceLevelLbl.Text = "Resource Collection Level: " + ResourceLV;
 		if (LampUnlock)
-        {
+		{
 			lampLevelLbl.Text = "Lamp Upgrade Level: " + LampLV;
-        }
-        else
-        {
+		}
+		else
+		{
 			lampLevelLbl.Text = "Unlock Lamp Post: ";
-        }
+		}
 		if(campfireUnlock)
-        {
+		{
 			campfireLevelLbl.Text = "Campfire Unlocked";
-        }
-        else
-        {
+		}
+		else
+		{
 			campfireLevelLbl.Text = "Unlock Campfire: ";
-        }
+		}
 	}
 
 	private void inInteractionArea(Node2D body)
-    {
+	{
 		PlayerInRange = true;
 		changeVisibility(PlayerInRange, PlayerInteracting);
 	}
@@ -57,66 +57,66 @@ public partial class workstation : Node2D
 		changeVisibility(PlayerInRange, PlayerInteracting);
 	}
 	private void changeVisibility(bool PlayerInRange, bool PlayerInteracting)
-    {
+	{
 			GUIContainer.Visible = PlayerInteracting;
-        if (!PlayerInteracting)
-        {
+		if (!PlayerInteracting)
+		{
 			workstationLbl.Visible = PlayerInRange;
 		}
-        else
-        {
+		else
+		{
 			workstationLbl.Visible = false;
-        }
+		}
 	}
 	private void lanternUpgradeCheck()
 	{
 		doLanternUpgrade();
 	}
 	private void lampUpgradeCheck()
-    {
+	{
 		if(!LampUnlock)
-        {
+		{
 			LampUnlock = true;
-        }
-        else
-        {
+		}
+		else
+		{
 			doLampUpgrade();
 		}
 		
-    }
+	}
 	private void campfireUpgradeCheck()
-    {
+	{
 		if(!campfireUnlock)
-        {
+		{
 			campfireUnlock = true;
-        }
-        else
-        {
+		}
+		else
+		{
 			doCampfireUpgrade();
-        }
-    }
+		}
+	}
 	private void resourceUpgradeCheck()
-    {
+	{
 		doResourceUpgrade();
-    }
+	}
 	private void doResourceUpgrade()
-    {
+	{
 		ResourceLV++;
-    }
+	}
 	private void doLanternUpgrade()
-    {
+	{
 		LanternLV++;
 	}
 	private void doLampUpgrade()
-    {
+	{
 		LampLV++;
 	}
 	private void doCampfireUpgrade()
-    {
+	{
 
-    }
-    public override void _Input(InputEvent @event)
-    {
+	}
+	public override void _Input(InputEvent @event)
+	{
 		if (@event.IsActionPressed("Interact") && PlayerInRange == true)
 		{
 			PlayerInteracting = true;

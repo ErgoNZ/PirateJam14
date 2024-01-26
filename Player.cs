@@ -22,6 +22,7 @@ public partial class Player : CharacterBody2D
 	Area2D LightZone;
 	AnimationTree Animator;
 	AnimationNodeStateMachinePlayback StateMachine;
+	TileMap Darkness;
 	
 	Random Random = new();
 	public override void _Ready()
@@ -40,6 +41,7 @@ public partial class Player : CharacterBody2D
 		Rocks = GetNode<Label>("../CanvasLayer/BoxContainer/RockAmount");
 		SanityBar = GetNode<ProgressBar>("../CanvasLayer/BoxContainer/SanityBar");
 		Animator = GetNode<AnimationTree>("AnimationTree");
+		Darkness = GetNode<TileMap>("Darkness");
 		Torch = GD.Load<PackedScene>("res://Objects/torch.tscn");
 		Lamp = GD.Load<PackedScene>("res://Objects/Lamppost.tscn");
 		GameOver = GD.Load<PackedScene>("res://GameOver.tscn");
@@ -91,6 +93,13 @@ public partial class Player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+		
+		if (Hp <= 30){
+			float Opacity = (float) Hp / -30 + 1; 
+			Darkness.Modulate = new(1, 1, 1, Opacity);
+		}
+		
+		
 	}
 	//every interval on the timer for the light sources
 	private void LightTick()

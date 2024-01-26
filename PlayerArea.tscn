@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://dvr3vdgt8skoo"]
+[gd_scene load_steps=74 format=3 uid="uid://dvr3vdgt8skoo"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_ynn1u"]
 [ext_resource type="TileSet" uid="uid://06q2bvu62dyy" path="res://new_tile_set.tres" id="2_au76m"]
@@ -17,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://cf8m3hje1qkv1" path="res://Assets/darkness.png" id="10_prawx"]
 [ext_resource type="Texture2D" uid="uid://bs23jprjxfbik" path="res://Assets/darker.png" id="11_qokn3"]
 [ext_resource type="Texture2D" uid="uid://fq84ejt10wum" path="res://Assets/dark.png" id="12_6qse2"]
-[ext_resource type="Script" path="res://Darkness.cs" id="13_1s4l3"]
 [ext_resource type="PackedScene" uid="uid://bm2enb1joauvk" path="res://Objects/workstation.tscn" id="13_r2ut1"]
 [ext_resource type="PackedScene" uid="uid://bdv2iao8tn3o4" path="res://Objects/Campfire.tscn" id="14_xfbbl"]
 
@@ -496,9 +495,6 @@ sources/1 = SubResource("TileSetAtlasSource_p1b0q")
 sources/2 = SubResource("TileSetAtlasSource_3tl51")
 sources/3 = SubResource("TileSetAtlasSource_5h4bm")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i1byd"]
-size = Vector2(300, 300)
-
 [node name="Main Scene" type="Node2D"]
 
 [node name="Background" type="TileMap" parent="."]
@@ -564,6 +560,22 @@ shape = SubResource("CircleShape2D_m6w11")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(1.66, 1.66)
+
+[node name="Darkness" type="TileMap" parent="Player"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-775, -394)
+scale = Vector2(0.8, 0.8)
+tile_set = SubResource("TileSet_8qv0h")
+format = 2
+layer_0/name = "Dark"
+layer_0/z_index = 1025
+layer_0/tile_data = PackedInt32Array(131077, 3, 0, 196612, 3, 0, 262148, 3, 0, 327684, 3, 131072, 393220, 3, 0, 458757, 3, 0, 524296, 3, 0, 524297, 3, 0, 524298, 3, 196608, 524299, 3, 0, 524300, 3, 0, 458766, 3, 0, 458767, 3, 0, 393231, 3, 0, 327695, 3, 0, 327694, 3, 0, 196622, 3, 0, 131086, 3, 196608, 65550, 3, 0, 65549, 3, 0, 131085, 3, 131072, 65548, 3, 0, 65547, 3, 0, 65546, 3, 0, 65545, 3, 0, 65544, 3, 0, 65543, 3, 65536, 262159, 3, 196608, 458765, 3, 0, 524294, 3, 0)
+layer_1/name = "Darker"
+layer_1/z_index = 1026
+layer_1/tile_data = PackedInt32Array(131077, 2, 65536, 131076, 2, 0, 196612, 2, 0, 262148, 2, 65536, 327684, 2, 0, 393220, 2, 196608, 458756, 2, 0, 458757, 2, 0, 524295, 2, 131072, 524296, 2, 131072, 524297, 2, 65536, 524298, 2, 131072, 524299, 2, 0, 458765, 2, 0, 458766, 2, 0, 327694, 2, 196608, 393230, 2, 0, 327695, 2, 65536, 262159, 2, 0, 196623, 2, 0, 131086, 2, 0, 196622, 2, 65536, 131085, 2, 0, 65548, 2, 0, 65547, 2, 196608, 65546, 2, 65536, 65545, 2, 0, 65544, 2, 131072, 65543, 2, 65536, 65542, 2, 0, 65541, 2, 131072, 524300, 2, 0, 524301, 2, 0)
+layer_2/name = "Darkest"
+layer_2/z_index = 1027
+layer_2/tile_data = PackedInt32Array(131077, 0, 0, 327684, 0, 65536, 458757, 0, 131072, 458766, 0, 196608, 131085, 0, 0, 65546, 0, 65536, 262159, 0, 131072, 524297, 0, 131072, 65545, 0, 131072, 65547, 1, 196608, 65548, 0, 0, 65549, 1, 131072, 65550, 1, 131072, 131086, 1, 131072, 196622, 1, 131072, 327694, 1, 131072, 196623, 1, 131072, 393230, 0, 0, 458765, 1, 131072, 524298, 1, 131072, 524299, 1, 131072, 524300, 0, 0, 65542, 0, 65536, 65543, 1, 131072, 65544, 1, 196608, 65541, 1, 131072, 196612, 1, 196608, 262148, 1, 196608, 131076, 1, 196608, 393220, 1, 196608, 524295, 0, 131072, 524296, 1, 65536, 327695, 0, 65536, 262147, 1, 65536, 327683, 1, 65536, 393219, 1, 65536, 458755, 1, 65536, 524291, 1, 65536, 458756, 1, 65536, 524292, 1, 65536, 524293, 1, 65536, 524294, 0, 65536, 196611, 1, 65536, 131075, 1, 65536, 65539, 1, 65536, 65540, 1, 65536, 65551, 1, 65536, 131087, 1, 65536, 393231, 1, 65536, 458767, 1, 65536, 524303, 1, 65536, 524301, 1, 65536, 524302, 1, 65536)
 
 [node name="Grass" parent="." instance=ExtResource("4_vmcku")]
 position = Vector2(936, 488)
@@ -642,26 +654,6 @@ position = Vector2(858, 315)
 
 [node name="ResourceNode3" parent="." instance=ExtResource("8_5ne35")]
 position = Vector2(690, 170)
-
-[node name="Darkness" type="TileMap" parent="."]
-visible = false
-scale = Vector2(0.8, 0.8)
-tile_set = SubResource("TileSet_8qv0h")
-format = 2
-layer_0/name = "Dark"
-layer_0/z_index = 1025
-layer_1/name = "Darker"
-layer_1/z_index = 1026
-layer_1/tile_data = PackedInt32Array()
-layer_2/name = "Darkest"
-layer_2/z_index = 1027
-layer_2/tile_data = PackedInt32Array()
-script = ExtResource("13_1s4l3")
-
-[node name="Area2D" type="Area2D" parent="Darkness"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Darkness/Area2D"]
-shape = SubResource("RectangleShape2D_i1byd")
 
 [node name="Workstation" parent="." instance=ExtResource("13_r2ut1")]
 position = Vector2(426, 345)

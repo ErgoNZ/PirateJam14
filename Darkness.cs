@@ -11,7 +11,7 @@ public partial class Darkness : TileMap
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		//darkness mechanics, may be removed.
+		//unfinished.
 		LightChecker = GetNode<Area2D>("Area2D");
 		
 		for (int i = 0; i < 20; i++) 

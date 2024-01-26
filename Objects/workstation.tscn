@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bm2enb1joauvk"]
+[gd_scene load_steps=6 format=3 uid="uid://bm2enb1joauvk"]
 
 [ext_resource type="Script" path="res://Objects/workstation.cs" id="1_cs372"]
+[ext_resource type="Texture2D" uid="uid://wxtillfa18tm" path="res://Assets/interatable.png" id="2_0npjn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8cgrt"]
 
@@ -12,6 +13,13 @@
 scale = Vector2(1, 0.978309)
 script = ExtResource("1_cs372")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-6, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_0npjn")
+region_enabled = true
+region_rect = Rect2(300, 0, 300, 200)
+
 [node name="ForcedInteractionRange" type="Area2D" parent="."]
 position = Vector2(1, 0)
 monitorable = false
@@ -20,8 +28,6 @@ monitorable = false
 position = Vector2(-6, -4)
 scale = Vector2(8, 8)
 shape = SubResource("CircleShape2D_8cgrt")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
 [node name="workstationLabel" type="Label" parent="."]
 visible = false
@@ -169,6 +175,7 @@ offset_bottom = 50.5987
 text = "Wood:000"
 
 [node name="btnResourcelvl" type="Button" parent="displayGUIControl"]
+layout_mode = 0
 offset_left = 110.0
 offset_top = 77.6855
 offset_right = 118.0
@@ -178,6 +185,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_afnvm")
 flat = true
 
 [node name="lblResourcelvl" type="Label" parent="displayGUIControl"]
+layout_mode = 0
 offset_left = 109.0
 offset_top = 83.8186
 offset_right = 265.0
