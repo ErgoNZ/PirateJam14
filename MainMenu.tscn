@@ -45,5 +45,5 @@ theme = SubResource("Theme_fh684")
 text = "Quit"
 
 [connection signal="button_up" from="StartButton" to="." method="StartGame"]
-[connection signal="button_up" from="HowToPlayButton" to="." method="StartGame"]
+[connection signal="button_up" from="HowToPlayButton" to="." method="LoadTutorial"]
 [connection signal="button_up" from="ExitButton" to="." method="QuitGame"]

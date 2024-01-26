@@ -546,7 +546,7 @@ layer_0/tile_data = PackedInt32Array(983064, 196608, 4, 262149, 0, 2, 196611, 19
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(627, 412)
 scale = Vector2(1.3175, 1)
-energy = 2.13
+energy = 2.8
 blend_mode = 1
 shadow_enabled = true
 shadow_color = Color(0.470588, 0, 0.929412, 0.321569)

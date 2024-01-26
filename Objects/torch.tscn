@@ -48,7 +48,7 @@ frame_progress = 0.250265
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0, -42)
 color = Color(0.937255, 0.611765, 0, 1)
-energy = 0.5
+energy = 1.5
 texture = ExtResource("1_lnl02")
 texture_scale = 5.0
 
