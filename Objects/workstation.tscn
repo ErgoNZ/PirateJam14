@@ -30,17 +30,16 @@ scale = Vector2(8, 8)
 shape = SubResource("CircleShape2D_8cgrt")
 
 [node name="workstationLabel" type="Label" parent="."]
-visible = false
-offset_left = -51.0
-offset_top = 13.0
-offset_right = 117.0
-offset_bottom = 36.0
+offset_left = -74.0
+offset_top = -73.5964
+offset_right = 241.0
+offset_bottom = -27.5964
 scale = Vector2(0.505117, 0.568861)
+theme_override_font_sizes/font_size = 30
 text = "E: Access Workstation
 "
 
 [node name="displayGUIControl" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -102.0
