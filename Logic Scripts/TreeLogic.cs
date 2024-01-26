@@ -40,7 +40,9 @@ public partial class TreeLogic : Node2D
 	{
 		if (@event.IsActionPressed("Interact") && PlayerCanReach == true)
 		{
-			GD.Print("Wood was gathered and gave " + WoodAmount +" wood!");
+            //deletes node
+            QueueFree();
+            GD.Print("Wood was gathered and gave " + WoodAmount +" wood!");
 			signals.EmitSignal("Wood",WoodAmount);
 		}
 	}

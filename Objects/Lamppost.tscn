@@ -10,6 +10,7 @@
 radius = 40.2003
 
 [node name="Lamp Post" type="Node2D"]
+z_index = 1
 script = ExtResource("1_lbcg1")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]

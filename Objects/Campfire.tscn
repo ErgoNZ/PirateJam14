@@ -40,6 +40,7 @@ animations = [{
 radius = 40.2003
 
 [node name="Campfire" type="Node2D"]
+z_index = 1
 script = ExtResource("1_htbfy")
 
 [node name="ForcedInteractionRange" type="Area2D" parent="."]

@@ -37,6 +37,7 @@ animations = [{
 radius = 40.2003
 
 [node name="Torch" type="Node2D"]
+z_index = 1
 script = ExtResource("1_w6lxo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

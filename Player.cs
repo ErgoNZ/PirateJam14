@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using static LightSourceList;
 
 public partial class Player : CharacterBody2D
 {
@@ -110,27 +111,30 @@ public partial class Player : CharacterBody2D
 		if (Spawn >= 500)
 		{
 			bool AlreadyCalled = false;
-			if(LightSourceList.Lights.Count > 1 || LightSourceList.Lights[0].Active) 
+			if(Lights.Count > 0)
 			{
-				for (int i = 0; i < 5; i++) 
-				{
-					int CallLightId = Random.Next(1, LightSourceList.Lights.Count);
-					if (LightSourceList.Lights[CallLightId].Active)
-					{
-						LightSourceList.Lights[CallLightId].Light.Call("SpawnEyes");
-						AlreadyCalled = true;
-						break;
-					}
-				}
-				if (!AlreadyCalled)
-				{
-					if (LightSourceList.Lights[0].Active)
-					{
-						LightSourceList.Lights[0].Light.Call("SpawnEyes");
-					}
-				}
-			}
-		}
+                for (int i = 0; i < 5; i++)
+                {
+                    int CallLightId = Random.Next(0, Lights.Count);
+                    GD.Print(CallLightId);
+					GD.Print(Lights.Count);
+                    if (Lights[CallLightId].Active)
+                    {
+                        Lights[CallLightId].Light.Call("SpawnEyes");
+                        GD.Print(Lights[CallLightId].Light.GlobalPosition);
+                        AlreadyCalled = true;
+                        break;
+                    }
+                }
+            }
+            if (!AlreadyCalled)
+            {
+                if (campfire.Active)
+                {
+                    campfire.Light.Call("SpawnEyes");
+                }
+            }
+        }
 		if (Hp <= 0)
 		{
 			GetTree().ChangeSceneToPacked(GameOver);
@@ -142,7 +146,7 @@ public partial class Player : CharacterBody2D
 		if(InLightZones < 0) InLightZones = 0;
 		if(Fuel <= 0 && InLightZones == 0) 
 		{
-			Hp -= 0.5;
+			Hp -= 1.5;
 		}
 		GD.Print("In " + InLightZones + " Light Zones");
 		SanityBar.Value = Hp;

@@ -25,6 +25,7 @@ public partial class torch : Node2D
 		LightZoneDefault = LightZone.Scale.X;
 		LightTexureScaleDefault = Light.TextureScale;
 		LightZone.AddToGroup("LightAreas");
+		LightSignals.TorchDied += DropLightID;
 		lightInfo = new LightInfo();
 		lightInfo.Light = this;
 		lightInfo.Active = true;
@@ -57,7 +58,8 @@ public partial class torch : Node2D
 	{
 		QueueFree();
 		GD.Print("Torch has faded away!");
-		Lights.RemoveAt(LightID);
+        LightSignals.EmitSignal("TorchDied",LightID);
+        Lights.RemoveAt(LightID);
 		if (PlayerInLight)
 		{
 			LightSignals.EmitSignal("RemoveLightArea");
@@ -83,4 +85,15 @@ public partial class torch : Node2D
 	{
 		EyeCount--;
 	}
+
+	private void DropLightID(int ID)
+	{
+        if (ID != LightID)
+        {
+			if(ID <= LightID)
+			{
+				LightID--;
+			}
+        }
+    }
 }

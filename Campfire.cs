@@ -43,16 +43,15 @@ public partial class Campfire : Node2D
 		lightInfo = new LightInfo();
 		lightInfo.Light = this;
 		lightInfo.Active = false;
-		Lights.Add(lightInfo);
-		LightID = Lights.Count - 1;
+		campfire = lightInfo;
 	}
 
 	private void LightTick()
 	{
 		if (LightPercentage > 0 && Active)
 		{
-			LightPercentage = LightPercentage - (0.01f + (0.01f * EyeCount));
-			lightInfo.Active = true;
+			LightPercentage = LightPercentage - (0.005f + (0.005f * EyeCount));
+			campfire.Active = true;
 		}
 		else
 		{
@@ -70,7 +69,7 @@ public partial class Campfire : Node2D
 
 	private void LightFaded()
 	{
-		lightInfo.Active = false;
+        campfire.Active = false;
 		if (PlayerInLight)
 		{
 			LightSignals.EmitSignal("RemoveLightArea");

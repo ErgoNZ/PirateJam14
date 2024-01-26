@@ -36,7 +36,8 @@ public partial class Lamppost : Node2D
 		GrassLbl = GetNode<Label>("GrassLabel");
 		WoodLbl = GetNode<Label>("WoodLabel");
 		Eyes = GD.Load<PackedScene>("res://Objects/Eyes.tscn");
-		LightZoneDefault = LightZone.Scale.X;
+        LightSignals.TorchDied += DropLightID;
+        LightZoneDefault = LightZone.Scale.X;
 		LightTexureScaleDefault = Light.TextureScale;
 		LightEnergyDefault = Light.Energy;
 		LightZone.AddToGroup("LightAreas");
@@ -73,7 +74,7 @@ public partial class Lamppost : Node2D
 		Light2.TextureScale = MathF.Abs(LightTexureScaleDefault * LightPercentage);
 		Light2.Energy = MathF.Abs(LightEnergyDefault * LightPercentage);
 		FuelBar.Value = LightPercentage;
-		if (LightZone.Scale.X <= 0)
+		if (LightPercentage <= 0)
 		{
 			LightFaded();
 		}
@@ -81,7 +82,7 @@ public partial class Lamppost : Node2D
 
 	private void LightFaded()
 	{
-		LightSourceList.Lights[LightID].Active = false;
+		Lights[LightID].Active = false;
 		if (PlayerInLight)
 		{
 			LightSignals.EmitSignal("RemoveLightArea");
@@ -152,4 +153,14 @@ public partial class Lamppost : Node2D
 			EyeCount--;
 		}
 	}
+    private void DropLightID(int ID)
+    {
+        if (ID != LightID)
+        {
+            if (ID <= LightID)
+            {
+                LightID--;
+            }
+        }
+    }
 }
