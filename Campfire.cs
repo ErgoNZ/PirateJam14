@@ -11,8 +11,8 @@ public partial class Campfire : Node2D
 	ProgressBar FuelBar;
 	Label GrassLbl, WoodLbl;
 	PackedScene Eyes;
-    LightInfo lightInfo;
-    bool PlayerInLight = false;
+	LightInfo lightInfo;
+	bool PlayerInLight = false;
 	bool PlayerInRange = false;
 	int grassCost = 1;
 	int woodCost = 1;
@@ -40,20 +40,20 @@ public partial class Campfire : Node2D
 		LightTexureScaleDefault = Light.TextureScale;
 		LightEnergyDefault = Light.Energy;
 		LightZone.AddToGroup("LightAreas");
-        lightInfo = new LightInfo();
-        lightInfo.Light = this;
-        lightInfo.Active = false;
-        Lights.Add(lightInfo);
-        LightID = Lights.Count - 1;
-    }
+		lightInfo = new LightInfo();
+		lightInfo.Light = this;
+		lightInfo.Active = false;
+		Lights.Add(lightInfo);
+		LightID = Lights.Count - 1;
+	}
 
 	private void LightTick()
 	{
 		if (LightPercentage > 0 && Active)
 		{
 			LightPercentage = LightPercentage - (0.01f + (0.01f * EyeCount));
-            lightInfo.Active = true;
-        }
+			lightInfo.Active = true;
+		}
 		else
 		{
 			LightPercentage = 0;
@@ -70,11 +70,11 @@ public partial class Campfire : Node2D
 
 	private void LightFaded()
 	{
-        lightInfo.Active = false;
-        if (PlayerInLight)
+		lightInfo.Active = false;
+		if (PlayerInLight)
 		{
 			LightSignals.EmitSignal("RemoveLightArea");
-        }
+		}
 	}
 	private void OnPlayerEnter(Node2D body)
 	{

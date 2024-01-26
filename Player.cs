@@ -36,9 +36,9 @@ public partial class Player : CharacterBody2D
 		ResSignals = GetNode<ResourceSignals>("/root/ResourceSignals");
 		LightSignals = GetNode<LightSignals>("/root/LightSignals");
 		inventory = GetNode<Inventory>("/root/Inventory");
-		Grass = GetNode<Label>("../CanvasLayer/BoxContainer/GrassAmount");
-		Logs = GetNode<Label>("../CanvasLayer/BoxContainer/LogAmount");
-		Rocks = GetNode<Label>("../CanvasLayer/BoxContainer/RockAmount");
+		Grass = GetNode<Label>("../CanvasLayer/BoxContainer2/GrassAmount");
+		Logs = GetNode<Label>("../CanvasLayer/BoxContainer2/LogAmount");
+		Rocks = GetNode<Label>("../CanvasLayer/BoxContainer2/RockAmount");
 		SanityBar = GetNode<ProgressBar>("../CanvasLayer/BoxContainer/SanityBar");
 		Animator = GetNode<AnimationTree>("AnimationTree");
 		Darkness = GetNode<TileMap>("Darkness");
@@ -155,9 +155,9 @@ public partial class Player : CharacterBody2D
 	//updates labels for the inventory
 	private void UpdateInv()
 	{
-		Grass.Text = "Grass: " + Inventory.Grass;
-		Logs.Text = "Logs: " + Inventory.Wood;
-		Rocks.Text = "Rocks: " + Inventory.Rocks;
+		Grass.Text = "" + Inventory.Grass;
+		Logs.Text = "" + Inventory.Wood;
+		Rocks.Text = "" + Inventory.Rocks;
 	}
 	//adds and removes light zones that the player is in
 	private void AddLightArea()
