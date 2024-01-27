@@ -13,14 +13,7 @@ public partial class TreeLogic : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		int woodMultiplier = workstation.ResourceLV;
-		var w = WoodMin * woodMultiplier;
-		if(WoodMax + woodMultiplier < (WoodMin * woodMultiplier))
-        {
-			WoodMax = w;
-        }
 		signals = GetNode<ResourceSignals>("/root/ResourceSignals");
-		WoodAmount = Random.Next(WoodMin * woodMultiplier , WoodMax + woodMultiplier);
 		InteractIcon = (Label)GetNode("Label");	
 	}
 
@@ -48,6 +41,13 @@ public partial class TreeLogic : Node2D
 		{
             //deletes node
             QueueFree();
+            int woodMultiplier = (int)workstation.ResourceLV;
+            var w = WoodMin * woodMultiplier;
+            if (WoodMax + woodMultiplier < (WoodMin * woodMultiplier))
+            {
+                WoodMax = w;
+            }
+            WoodAmount = Random.Next(WoodMin * woodMultiplier, WoodMax + woodMultiplier);
             GD.Print("Wood was gathered and gave " + WoodAmount +" wood!");
 			signals.EmitSignal("Wood",WoodAmount);
 		}

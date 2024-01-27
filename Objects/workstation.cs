@@ -3,18 +3,18 @@ using System;
 
 public partial class workstation : Node2D
 {
-	public static float LanternLV = 1, LampLV = 1, ResourceLV = 1, CampfireLV = 1;
+	public static int LanternLV = 1, LampLV = 1, ResourceLV = 1, CampfireLV = 1;
 	
-	int resourcesUpgradeCost = 1;
+	public static int resourcesUpgradeCost = 2;
 
-	int lanternWoodUpgradeCost = 1;
-	int lanternGrassUpgradeCost = 1;
+	public static int lanternWoodUpgradeCost = 1;
+	public static int lanternGrassUpgradeCost = 1;
 
-	int lampRockUpgradeCost = 1;
-	int lampWoodUpgradeCost = 1;
+	public static int lampRockUpgradeCost = 1;
+	public static int lampWoodUpgradeCost = 1;
 
-	int campfireRockUpgradeCost = 1;
-	int campfireWoodUpgradeCost = 1;
+	public static int campfireRockUpgradeCost = 1;
+	public static int campfireWoodUpgradeCost = 1;
 
 	public static bool campfireUnlock = false, LampUnlock = false;
 	bool PlayerInRange = false;
@@ -56,11 +56,16 @@ public partial class workstation : Node2D
 		resourceWoodLbl = GetNode<Label>("displayGUIControl/lblResourcelvl/lblResourcelvlRocks");
 		resourceGrassLbl = GetNode<Label>("displayGUIControl/lblResourcelvl/lblResourcelvlGrass");
 		resourceRocksLbl = GetNode<Label>("displayGUIControl/lblResourcelvl/lblResourcelvlWood");
-	}
+    }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (LampUnlock)
+		{
+            lamppostButton.Visible = true;
+            lamppostLabel.Visible = true;
+        }
 		resourceLevelLbl.Text = "Resource Collection Level: " + ResourceLV;
 		resourceWoodLbl.Text = ": " + resourcesUpgradeCost.ToString();
 		resourceGrassLbl.Text = ": " + resourcesUpgradeCost.ToString();
@@ -139,7 +144,8 @@ public partial class workstation : Node2D
 				LampUnlock = true;
 				lamppostButton.Visible = true;
 				lamppostLabel.Visible = true;
-				
+				Inventory.Wood -= 5;
+				Inventory.Rocks -= 10;
 			}	
 		}
 		else
@@ -186,21 +192,27 @@ public partial class workstation : Node2D
 	}
 	private void doResourceUpgrade()
 	{
-
 		ResourceLV++;
-	}
+        resourcesUpgradeCost = 1 * (ResourceLV + 1);
+    }
 	private void doLanternUpgrade()
 	{
 		LanternLV++;
-	}
-	private void doLampUpgrade()
+        lanternWoodUpgradeCost = 1 * (LanternLV + 1);
+        lanternGrassUpgradeCost = 1 * (LanternLV + 1);
+    }
+	private void doLampUpgrade()	
 	{
 		LampLV++;
-	}
+        lampRockUpgradeCost = 1 * (LampLV + 1);
+        lampWoodUpgradeCost = 1 * (LampLV + 1);
+    }
 	private void doCampfireUpgrade()
 	{
 		CampfireLV++;
-	}
+        campfireRockUpgradeCost = 1 * (CampfireLV + 1);
+        campfireWoodUpgradeCost = 1 * (CampfireLV + 1);
+    }
 	public override void _Input(InputEvent @event)
 	{
 		if (@event.IsActionPressed("Interact") && PlayerInRange == true)
@@ -210,5 +222,21 @@ public partial class workstation : Node2D
 		}
 
 	}
+	public static void Reset()
+	{
+        LanternLV = 1;
+        LampLV = 1;
+        ResourceLV = 1;
+        CampfireLV = 1;
+        resourcesUpgradeCost = 2;
+        lanternWoodUpgradeCost = 1;
+        lanternGrassUpgradeCost = 1;
+        lampRockUpgradeCost = 1;
+        lampWoodUpgradeCost = 1;
+        campfireRockUpgradeCost = 1;
+        campfireWoodUpgradeCost = 1;
+		campfireUnlock = false;
+		LampUnlock = false;
+    }
 }
 

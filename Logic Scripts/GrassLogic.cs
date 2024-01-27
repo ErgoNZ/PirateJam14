@@ -13,17 +13,7 @@ public partial class GrassLogic : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		int grassMultiplier = workstation.ResourceLV;
-		var w = GrassMin * grassMultiplier;
-		if (GrassMax + grassMultiplier < (GrassMin * grassMultiplier))
-		{
-			GrassMax = w;
-		}
 		signals = GetNode<ResourceSignals>("/root/ResourceSignals");
-		GrassAmount = Random.Next(GrassMin * grassMultiplier, GrassMax + grassMultiplier);
-
-		signals = GetNode<ResourceSignals>("/root/ResourceSignals");
-		GrassAmount = Random.Next(GrassMin, GrassMax);
 		InteractIcon = (Label)GetNode("Label");		
 	}
 
@@ -51,7 +41,14 @@ public partial class GrassLogic : Node2D
 		{
 			//deletes node
 		    QueueFree();
-			GD.Print("Grass was gathered and gave " + GrassAmount +" grass!");
+            int grassMultiplier = (int)workstation.ResourceLV;
+            var w = GrassMin * grassMultiplier;
+            if (GrassMax + grassMultiplier < (GrassMin * grassMultiplier))
+            {
+                GrassMax = w;
+            }
+            GrassAmount = Random.Next(GrassMin * grassMultiplier, GrassMax + grassMultiplier);
+            GD.Print("Grass was gathered and gave " + GrassAmount +" grass!");
 			signals.EmitSignal("Grass", GrassAmount);		
 		}
 	}

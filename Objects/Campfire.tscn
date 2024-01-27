@@ -37,7 +37,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ralba"]
-radius = 40.2003
+radius = 59.7584
 
 [node name="Campfire" type="Node2D"]
 z_index = 1
@@ -67,13 +67,13 @@ show_percentage = false
 color = Color(0.937255, 0.407843, 0, 1)
 energy = 2.0
 texture = ExtResource("2_g4omq")
-texture_scale = 5.0
+texture_scale = 7.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_iyqre")
 animation = &"new_animation"
-frame_progress = 0.143669
+frame_progress = 0.85317
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(1, -1)

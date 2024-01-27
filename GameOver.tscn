@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://i5kdpjgemcqj"]
+[gd_scene load_steps=5 format=3 uid="uid://i5kdpjgemcqj"]
 
 [ext_resource type="Script" path="res://MainMenu.cs" id="1_c31bs"]
+[ext_resource type="Script" path="res://Label2.cs" id="2_eg6cs"]
 
 [sub_resource type="Theme" id="Theme_y1rwj"]
 Label/font_sizes/font_size = 45
@@ -44,5 +45,14 @@ offset_right = 300.0
 offset_bottom = 100.0
 theme = SubResource("Theme_ev1jr")
 text = "Main Menu"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -397.0
+offset_top = -99.0
+offset_right = 400.0
+offset_bottom = -65.0
+theme_override_font_sizes/font_size = 24
+text = "You survived for X seconds before losing your sanity to the darkness."
+script = ExtResource("2_eg6cs")
 
 [connection signal="button_up" from="MenuButton" to="." method="LoadMainMenu"]

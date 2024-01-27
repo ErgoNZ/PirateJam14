@@ -13,18 +13,7 @@ public partial class RockLogic : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		int rockMultiplier = workstation.ResourceLV;
-		var w = RockMin * rockMultiplier;
-		if (RockMax + rockMultiplier < (RockMin * rockMultiplier))
-		{
-			RockMax = w;
-		}
 		signals = GetNode<ResourceSignals>("/root/ResourceSignals");
-		RockAmount = Random.Next(RockMin * rockMultiplier, RockMax + rockMultiplier);
-
-		InteractIcon = (Label)GetNode("Label");
-		signals = GetNode<ResourceSignals>("/root/ResourceSignals");
-		RockAmount = Random.Next(RockMin, RockMax);
 		InteractIcon = (Label)GetNode("Label");
 	}
 
@@ -52,6 +41,13 @@ public partial class RockLogic : Node2D
 		{
             //deletes node
             QueueFree();
+            int rockMultiplier = (int)workstation.ResourceLV;
+            var w = RockMin * rockMultiplier;
+            if (RockMax + rockMultiplier < (RockMin * rockMultiplier))
+            {
+                RockMax = w;
+            }
+            RockAmount = Random.Next(RockMin * rockMultiplier, RockMax + rockMultiplier);
             GD.Print("Rock was gathered and gave " + RockAmount +" rocks!");
 			signals.EmitSignal("Rock", RockAmount);
 		}

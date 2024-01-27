@@ -63,7 +63,8 @@ public partial class Lamppost : Node2D
 		{
 			LightPercentage = LightPercentage - (0.01f + (0.01f * EyeCount));
 			LightSourceList.Lights[LightID].Active = true;
-		}
+            LightZone.Monitoring = true;
+        }
 		else
 		{
 			LightPercentage = 0;
@@ -83,6 +84,7 @@ public partial class Lamppost : Node2D
 	private void LightFaded()
 	{
 		Lights[LightID].Active = false;
+		LightZone.Monitoring = false;
 		if (PlayerInLight)
 		{
 			LightSignals.EmitSignal("RemoveLightArea");
