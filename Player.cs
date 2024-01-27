@@ -57,15 +57,15 @@ public partial class Player : CharacterBody2D
 		Inventory.Grass = 0;
 		workstation.Reset();
 		Inventory.LightTicksPassed = 0;
-    }
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
-        UpdateInv();
-        // Get the input direction and handle the movement/deceleration.
-        // As good practice, you should replace UI actions with custom gameplay actions.
-        Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		UpdateInv();
+		// Get the input direction and handle the movement/deceleration.
+		// As good practice, you should replace UI actions with custom gameplay actions.
+		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		if (direction != Vector2.Zero)
 		{
 			if (Input.IsActionPressed("ui_left") || Input.IsActionPressed("ui_down") && !Input.IsActionPressed("ui_right"))
@@ -118,37 +118,37 @@ public partial class Player : CharacterBody2D
 			bool AlreadyCalled = false;
 			if(Lights.Count > 0)
 			{
-                for (int i = 0; i < 5; i++)
-                {
-                    int CallLightId = Random.Next(0, Lights.Count);
-                    GD.Print(CallLightId);
+				for (int i = 0; i < 5; i++)
+				{
+					int CallLightId = Random.Next(0, Lights.Count);
+					GD.Print(CallLightId);
 					GD.Print(Lights.Count);
-                    if (Lights[CallLightId].Active)
-                    {
-                        Lights[CallLightId].Light.Call("SpawnEyes");
-                        GD.Print(Lights[CallLightId].Light.GlobalPosition);
-                        AlreadyCalled = true;
-                        break;
-                    }
-                }
-            }
-            if (!AlreadyCalled)
-            {
-                if (campfire.Active)
-                {
-                    campfire.Light.Call("SpawnEyes");
-                }
-            }
-        }
+					if (Lights[CallLightId].Active)
+					{
+						Lights[CallLightId].Light.Call("SpawnEyes");
+						GD.Print(Lights[CallLightId].Light.GlobalPosition);
+						AlreadyCalled = true;
+						break;
+					}
+				}
+			}
+			if (!AlreadyCalled)
+			{
+				if (campfire.Active)
+				{
+					campfire.Light.Call("SpawnEyes");
+				}
+			}
+		}
 		if (Hp <= 0)
 		{
 			QueueFree();
-            ResSignals.Wood -= HandleLogs;
-            ResSignals.Grass -= HandleGrass;
-            ResSignals.Rock -= HandleRocks;
-            LightSignals.AddLightArea -= AddLightArea;
-            LightSignals.RemoveLightArea -= RemoveLightArea;
-            GetTree().ChangeSceneToPacked(GameOver);
+			ResSignals.Wood -= HandleLogs;
+			ResSignals.Grass -= HandleGrass;
+			ResSignals.Rock -= HandleRocks;
+			LightSignals.AddLightArea -= AddLightArea;
+			LightSignals.RemoveLightArea -= RemoveLightArea;
+			GetTree().ChangeSceneToPacked(GameOver);
 		}
 		if (InLightZones > 0)
 		{
@@ -170,10 +170,10 @@ public partial class Player : CharacterBody2D
 	//updates labels for the inventory
 	private void UpdateInv()
 	{
-        Grass = GetNode<Label>("../CanvasLayer/BoxContainer2/GrassAmount");
-        Logs = GetNode<Label>("../CanvasLayer/BoxContainer2/LogAmount");
-        Rocks = GetNode<Label>("../CanvasLayer/BoxContainer2/RockAmount");
-        Grass.Text = "" + Inventory.Grass;
+		Grass = GetNode<Label>("../CanvasLayer/BoxContainer2/GrassAmount");
+		Logs = GetNode<Label>("../CanvasLayer/BoxContainer2/LogAmount");
+		Rocks = GetNode<Label>("../CanvasLayer/BoxContainer2/RockAmount");
+		Grass.Text = "" + Inventory.Grass;
 		Logs.Text = "" + Inventory.Wood;
 		Rocks.Text = "" + Inventory.Rocks;
 	}

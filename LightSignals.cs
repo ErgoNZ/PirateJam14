@@ -11,6 +11,6 @@ public partial class LightSignals : Node
 	public delegate void TakeOneGrassEventHandler();
 	[Signal]
 	public delegate void TakeOneLogEventHandler();
-    [Signal]
-    public delegate void TorchDiedEventHandler(int ID);
+	[Signal]
+	public delegate void TorchDiedEventHandler(int ID);
 }

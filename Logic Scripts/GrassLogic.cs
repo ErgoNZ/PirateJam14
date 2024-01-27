@@ -40,15 +40,15 @@ public partial class GrassLogic : Node2D
 		if (@event.IsActionPressed("Interact") && PlayerCanReach == true)
 		{
 			//deletes node
-		    QueueFree();
-            int grassMultiplier = (int)workstation.ResourceLV;
-            var w = GrassMin * grassMultiplier;
-            if (GrassMax + grassMultiplier < (GrassMin * grassMultiplier))
-            {
-                GrassMax = w;
-            }
-            GrassAmount = Random.Next(GrassMin * grassMultiplier, GrassMax + grassMultiplier);
-            GD.Print("Grass was gathered and gave " + GrassAmount +" grass!");
+			QueueFree();
+			int grassMultiplier = (int)workstation.ResourceLV;
+			var w = GrassMin * grassMultiplier;
+			if (GrassMax + grassMultiplier < (GrassMin * grassMultiplier))
+			{
+				GrassMax = w;
+			}
+			GrassAmount = Random.Next(GrassMin * grassMultiplier, GrassMax + grassMultiplier);
+			GD.Print("Grass was gathered and gave " + GrassAmount +" grass!");
 			signals.EmitSignal("Grass", GrassAmount);		
 		}
 	}

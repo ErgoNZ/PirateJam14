@@ -53,9 +53,9 @@ region_enabled = true
 region_rect = Rect2(115, 132, 39, 39)
 
 [node name="displayGUIControl" type="Control" parent="."]
-light_mask = 4
-visibility_layer = 4
-z_index = 10
+light_mask = 8
+visibility_layer = 8
+z_index = 1040
 layout_mode = 3
 anchors_preset = 0
 offset_left = -98.0

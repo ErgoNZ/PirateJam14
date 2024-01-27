@@ -42,8 +42,8 @@ public partial class Campfire : Node2D
 		LightEnergyDefault = Light.Energy;
 		LightZone.AddToGroup("LightAreas");
 		lightInfo = new LightInfo();
-        LightZone.Monitoring = false;
-        lightInfo.Light = this;
+		LightZone.Monitoring = false;
+		lightInfo.Light = this;
 		lightInfo.Active = false;
 		campfire = lightInfo;
 	}
@@ -51,15 +51,15 @@ public partial class Campfire : Node2D
 	private void LightTick()
 	{
 		if(workstation.campfireUnlock)
-        {
+		{
 			this.Show();
-        }
+		}
 		if (LightPercentage > 0 && workstation.campfireUnlock)
 		{
 			LightPercentage = LightPercentage - (0.005f + (0.005f * EyeCount));
 			campfire.Active = true;
-            LightZone.Monitoring = true;
-        }
+			LightZone.Monitoring = true;
+		}
 		LightZone.Scale = new(MathF.Abs(LightZoneDefault * LightPercentage), MathF.Abs(LightZoneDefault * LightPercentage));
 		Light.TextureScale = MathF.Abs(LightTexureScaleDefault * LightPercentage);
 		Light.Energy = MathF.Abs(LightEnergyDefault * LightPercentage);
@@ -73,9 +73,9 @@ public partial class Campfire : Node2D
 
 	private void LightFaded()
 	{
-        campfire.Active = false;
-        LightZone.Monitoring = false;
-        if (PlayerInLight)
+		campfire.Active = false;
+		LightZone.Monitoring = false;
+		if (PlayerInLight)
 		{
 			LightSignals.EmitSignal("RemoveLightArea");
 		}
@@ -145,14 +145,14 @@ public partial class Campfire : Node2D
 			EyeCount--;
 		}
 	}
-    public void SpawnEyes()
-    {
-        Node2D SpawnedEyes;
-        Vector2 Displacement = new(Random.Next(-150, 150), Random.Next(-150, 150));
-        SpawnedEyes = (Node2D)Eyes.Instantiate();
-        AddChild(SpawnedEyes);
-        SpawnedEyes.Position = Displacement;
-        SpawnedEyes.AddToGroup("Eyes");
-        EyeCount++;
-    }
+	public void SpawnEyes()
+	{
+		Node2D SpawnedEyes;
+		Vector2 Displacement = new(Random.Next(-150, 150), Random.Next(-150, 150));
+		SpawnedEyes = (Node2D)Eyes.Instantiate();
+		AddChild(SpawnedEyes);
+		SpawnedEyes.Position = Displacement;
+		SpawnedEyes.AddToGroup("Eyes");
+		EyeCount++;
+	}
 }

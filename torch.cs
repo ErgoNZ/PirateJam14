@@ -58,8 +58,8 @@ public partial class torch : Node2D
 	{
 		QueueFree();
 		GD.Print("Torch has faded away!");
-        LightSignals.EmitSignal("TorchDied",LightID);
-        Lights.RemoveAt(LightID);
+		LightSignals.EmitSignal("TorchDied",LightID);
+		Lights.RemoveAt(LightID);
 		if (PlayerInLight)
 		{
 			LightSignals.EmitSignal("RemoveLightArea");
@@ -88,12 +88,12 @@ public partial class torch : Node2D
 
 	private void DropLightID(int ID)
 	{
-        if (ID != LightID)
-        {
+		if (ID != LightID)
+		{
 			if(ID <= LightID)
 			{
 				LightID--;
 			}
-        }
-    }
+		}
+	}
 }
