@@ -3,13 +3,14 @@ using System;
 
 public partial class MainMenu : Node2D
 {
-	PackedScene PlayArea,Menu,Tutorial;
+	PackedScene PlayArea,Menu,Tutorial,GameOver;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		PlayArea = GD.Load<PackedScene>("res://PlayerArea.tscn");
 		Menu = GD.Load<PackedScene>("res://MainMenu.tscn");
 		Tutorial = GD.Load<PackedScene>("res://Tutorial.tscn");
+		GameOver = GD.Load<PackedScene>("res://GameOver.tscn");
 	}
 	
 	private void StartGame()
